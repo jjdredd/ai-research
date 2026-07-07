@@ -1,2 +1,3 @@
 * https://github.com/facebookresearch/segment-anything
 * [[https://depth-anything.github.io][depth anything]]
+* [[https://arxiv.org/pdf/2407.11850][SpaceJAM: a Lightweight and Regularization-free Method for Fast Joint Alignment of Images]]
