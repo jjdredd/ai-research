@@ -1,0 +1,14 @@
+* Research papers
+** https://dl.acm.org/doi/10.1145/3764727.3764761
+** https://pmc.ncbi.nlm.nih.gov/articles/PMC11461453/
+** https://csitcp.com/paper/11/117csit12.pdf
+** https://cs231n.stanford.edu/2024/papers/basketball-detection-from-images-to-videos.pdf
+** https://onlinelibrary.wiley.com/doi/pdf/10.1155/2021/4485589
+** https://www.nature.com/articles/s41598-024-63621-8
+** https://www.diva-portal.org/smash/get/diva2:1890063/FULLTEXT01.pdf
+* Tools
+** https://github.com/open-mmlab/mmaction2
+* Datasets
+** 
+* Other
+** https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/basketball-ai-how-to-detect-track-and-identify-basketball-players.ipynb
