@@ -1,0 +1,2 @@
+* https://github.com/facebookresearch/segment-anything
+* [[https://depth-anything.github.io][depth anything]]
