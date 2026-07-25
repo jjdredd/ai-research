@@ -7,8 +7,15 @@
 ** [[https://onlinelibrary.wiley.com/doi/pdf/10.1155/2021/4485589][Artificial Intelligence and Neural Network-Based Shooting Accuracy Prediction Analysis in Basketball]]
 *** Not interesting
 ** [[https://www.nature.com/articles/s41598-024-63621-8][Basketball technique action recognition using 3D convolutional neural networks]]
+The article itself does not contain a detailed description of the 3D CNN, but there are a couple of
+interesting references with more information on the neural network architecture:
+*** [[https://www.mdpi.com/2078-2489/14/1/13][Basketball Action Recognition Method of Deep Neural Network Based on Dynamic Residual Attention Mechanism]]
+*** [[https://www.inderscienceonline.com/doi/abs/10.1504/IJRIS.2022.126650][Recognition method of basketball players' shooting action based on graph convolution neural network]]
 ** [[https://www.diva-portal.org/smash/get/diva2:1890063/FULLTEXT01.pdf][Real-Time Basketball Shooting Action Recognition]]
 *** Interesting
+** https://www.informatica.si/index.php/informatica/article/view/6100/3034
+** [[https://arxiv.org/pdf/2410.09954][EITNet: An IoT-Enhanced Framework for Real-Time Basketball Action Recognition]]
+** https://bit.kuas.edu.tw/~jni/2025/vol10/s1/22.JNI-S-2024-02-004.pdf
 * Tools
 ** https://github.com/open-mmlab/mmaction2
 * Datasets
