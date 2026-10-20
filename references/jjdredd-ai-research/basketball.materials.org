@@ -1,0 +1,45 @@
+* Research papers
+** [[https://dl.acm.org/doi/10.1145/3764727.3764761][Basketball Video Analysis Based on YOLO and Transformer Framework]]
+** [[https://pmc.ncbi.nlm.nih.gov/articles/PMC11461453/][ACA-Net: adaptive context-aware network for basketball action recognition]]
+** [[https://csitcp.com/paper/11/117csit12.pdf][BASKETBALL-51: A VIDEO DATASET FOR ACTIVITY RECOGNITION IN THE BASKETBALL GAME]]
+** [[https://cs231n.stanford.edu/2024/papers/basketball-detection-from-images-to-videos.pdf][Basketball Detection: From Images to Videos]]
+*** simple ball detection, not very interesting
+** [[https://onlinelibrary.wiley.com/doi/pdf/10.1155/2021/4485589][Artificial Intelligence and Neural Network-Based Shooting Accuracy Prediction Analysis in Basketball]]
+*** Not interesting
+** [[https://www.nature.com/articles/s41598-024-63621-8][Basketball technique action recognition using 3D convolutional neural networks]]
+The article itself does not contain a detailed description of the 3D CNN, but there are a couple of
+interesting references with more information on the neural network architecture:
+*** [[https://www.mdpi.com/2078-2489/14/1/13][Basketball Action Recognition Method of Deep Neural Network Based on Dynamic Residual Attention Mechanism]]
+*** [[https://www.inderscienceonline.com/doi/abs/10.1504/IJRIS.2022.126650][Recognition method of basketball players' shooting action based on graph convolution neural network]]
+** [[https://www.diva-portal.org/smash/get/diva2:1890063/FULLTEXT01.pdf][Real-Time Basketball Shooting Action Recognition]]
+*** Interesting
+** https://www.informatica.si/index.php/informatica/article/view/6100/3034
+** [[https://arxiv.org/pdf/2410.09954][EITNet: An IoT-Enhanced Framework for Real-Time Basketball Action Recognition]]
+** https://bit.kuas.edu.tw/~jni/2025/vol10/s1/22.JNI-S-2024-02-004.pdf
+* Papers to review
+** https://www.researchgate.net/publication/389667576_Enhanced_TransFormer-based_Algorithm_for_Key-frame_Action_Recognition_in_Basketball_Shooting
+** https://www.researchgate.net/publication/395741460_A_Vision_Transformer-Based_Model_for_Basketball_Tactics_Recognition_Using_Swarm_Intelligence
+** https://www.the-iyrc.org/uploads/1/2/9/7/129787256/20_iyrc2020_35_final.pdf
+** https://dtai.cs.kuleuven.be/events/MLSA24/papers/8.pdf
+** https://www.nature.com/articles/s41598-024-63621-8
+** https://www.cs.toronto.edu/~davidj/projects/towards_real_time_detection_tracking.pdf
+** https://www.cecs.uci.edu/~papers/icme06/pdfs/0001885.pdf
+** https://reference-global.com/download/article/10.2478/ijcss-2025-0005.pdf
+** https://www.diva-portal.org/smash/get/diva2:2040378/FULLTEXT01.pdf
+** https://arxiv.org/html/2512.01478v1
+
+* Tools
+** https://github.com/open-mmlab/mmaction2
+* Datasets
+** [[https://www.kaggle.com/datasets/antocommii/spacejam-action-recognition][spacejam]]
+*** labels look suspicious (no score information)
+** [[https://www.kaggle.com/datasets/sarbagyashakya/basketball-51-dataset][basketball-51]]
+** [[https://rose1.ntu.edu.sg/dataset/actionRecognition/][NTURGB + D]]
+*** [[https://www.mdpi.com/2076-3417/11/10/4426][NPU RGBD Dataset and a Feature-Enhanced LSTM-DGCN Method for Action Recognition of Basketball Players]]
+** Basketball-Action-Dataset
+*** Not found
+** B3D Dataset
+*** [[https://github.com/b3d-project/b3d]]
+*** Not relevant?
+* Other
+** https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/basketball-ai-how-to-detect-track-and-identify-basketball-players.ipynb
