@@ -110,7 +110,8 @@ restrict outputs to per-shot trajectories or invest in line-based calibration
 ## Suggested build order
 
 1. v0: Ultralytics YOLO11-person + ByteTrack + supervision overlay — same day,
-   qualitative sanity on our footage.
+   qualitative sanity on our footage. Specified in detail in
+   [04-v0-prototype.md](04-v0-prototype.md).
 2. v1: fine-tuned detector, OC-SORT/BoT-SORT A/B, color team assignment,
    TrackEval mini-benchmark.
 3. v2: identity gallery (ReID) + jersey numbers.

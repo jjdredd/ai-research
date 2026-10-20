@@ -16,6 +16,7 @@ repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research)
 | [docs/01-repo-review.md](docs/01-repo-review.md) | Review of the papers/materials in the `jjdredd/ai-research` repo (mostly basketball **action recognition** — adjacent to, but not the same as, our detection/tracking problem) |
 | [docs/02-solution-landscape.md](docs/02-solution-landscape.md) | The broader solution landscape: MOT algorithms, sports-specific papers, benchmarks/datasets, ReID & jersey-number recognition, team assignment, commercial products, open-source projects |
 | [docs/03-recommended-architecture.md](docs/03-recommended-architecture.md) | A concrete recommended pipeline (detect → track → assign team → identify) with candidate components, trade-offs, evaluation plan and risks |
+| [docs/04-v0-prototype.md](docs/04-v0-prototype.md) | v0 prototype proposal: same-day YOLO11 + ByteTrack + supervision spike — scope, deliverables, code sketch, acceptance criteria |
 | [references/jjdredd-ai-research/](references/jjdredd-ai-research/) | Mirror of the reference repo (org files, PDF, mmaction2 results) |
 | [notes/](notes/) | Raw parsed text of papers we read in full |
 
