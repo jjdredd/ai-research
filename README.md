@@ -17,6 +17,7 @@ repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research)
 | [docs/02-solution-landscape.md](docs/02-solution-landscape.md) | The broader solution landscape: MOT algorithms, sports-specific papers, benchmarks/datasets, ReID & jersey-number recognition, team assignment, commercial products, open-source projects |
 | [docs/03-recommended-architecture.md](docs/03-recommended-architecture.md) | A concrete recommended pipeline (detect → track → assign team → identify) with candidate components, trade-offs, evaluation plan and risks |
 | [docs/04-v0-prototype.md](docs/04-v0-prototype.md) | v0 prototype proposal: same-day YOLO11 + ByteTrack + supervision spike — scope, deliverables, code sketch, acceptance criteria |
+| [docs/05-literature-review.md](docs/05-literature-review.md) | Annotated **literature review / reading list**: papers, benchmarks, and systems for detection, tracking, team assignment, ReID & jersey-number recognition — single-algorithm methods and full pipelines, in reading order, with a 10-paper core path |
 | [references/jjdredd-ai-research/](references/jjdredd-ai-research/) | Mirror of the reference repo (org files, PDF, mmaction2 results) |
 | [notes/](notes/) | Raw parsed text of papers we read in full |
 
