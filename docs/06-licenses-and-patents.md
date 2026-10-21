@@ -19,6 +19,13 @@ this table makes visible:
 > source before any commercial use; licenses change (ByteTrack moved orgs and
 > several projects relicensed in recent years).
 
+**Status markers** (rows without a marker were directly verified this
+session, typically via the GitHub API):
+❓ = license **not found / not confirmed** — entry listed anyway; resolve
+before any product decision · 🏢 = proprietary, no public license ·
+⚠️ = owner-stated policy rather than a standard license file ·
+⛔ = **no license file** ⇒ all rights reserved by default.
+
 ## Master table
 
 ### Trackers (association / tracking-by-detection)
@@ -37,7 +44,9 @@ this table makes visible:
 | MOTR | `megvii-research/MOTR` — **custom/non-standard** (`NOASSERTION`) | research | read LICENSE before use |
 | TransTrack | `PeizeSun/TransTrack` — **MIT** | research | |
 | TrackFormer | `timmeinhardt/trackformer` — **Apache-2.0** | research | |
-| QD-TRACK | no public official code found | — | results reproduced via SportsMOT baselines |
+| QD-TRACK | no public official code found ❓ | — | results reproduced via SportsMOT baselines |
+| **MixSORT** (ICCV 2023) | baseline code inside `MCG-NJU/SportsMOT` — **no license file** ⛔ | n/a | top SportsMOT baseline; same all-rights-reserved caveat as the benchmark repo |
+| MOTRv2 (CVPR 2023) | ❓ code availability not confirmed this session | ❓ | listed for completeness of the transformer-tracking line |
 | SAM | `facebookresearch/segment-anything` — **Apache-2.0** | **Apache-2.0** (re-released; originally NC) | |
 | SAM 2 | `facebookresearch/sam2` — **Apache-2.0** | **Apache-2.0** | |
 | Segment-and-Track-Anything | `z-x-yang/Segment-and-Track-Anything` — **AGPL-3.0** | SAM weights Apache | AGPL wrapper — keep it out of products |
@@ -69,17 +78,43 @@ this table makes visible:
 | supervision | **MIT** | n/a | |
 | TrackEval | `JonathonLuiten/TrackEval` — **MIT** | n/a | |
 
+### Basketball-specific methods, pipelines & community code
+
+Everything in the reading list the tables above didn't cover — listed here
+precisely *because* the license situation is thin. Several entries have **no
+findable code or license at all**; that is a design input (don't plan on
+depending on them), not a reason to omit them.
+
+| Entry | What | Code availability | Code license | Notes |
+|---|---|---|---|---|
+| **Basketball-SORT** (arXiv:2406.19655) | basketball-tuned SORT variant | ❓ no repo located | ❓ | treat as paper-only until authors release |
+| **GameSense** (Nature, 2025) | full basketball perception system | ❓ not confirmed | ❓ | Nature publication ≠ open code; check the supplement |
+| **PlayerTV** (arXiv:2407.16076) | player localization/tracking in TV broadcasts | ❓ repo referenced in paper not verified | ❓ | re-check before building on it |
+| **SoccerNet GSR** (task + baselines) | game-state reconstruction | `SoccerNet/sn-*` repos | ⚠️ custom per-repo terms | soccer data, transferable task design |
+| **Roboflow basketball pipeline** (blog + notebooks) | detect→track→team recipe | Roboflow example repos | ⚠️ usually Apache-2.0 per repo — confirm per notebook | depends on Ultralytics weights ⇒ AGPL in practice |
+| **TrackNet / V2 / V3** (arXiv:1907.03698 →) | tiny-ball tracking CNNs (racquet sports) | ❓ official vs many reimplementations | ❓ varies per release | adapt the *recipe*; vet each implementation's terms |
+| **Pose-based player detection** (arXiv:1906.02042 & follow-ups) | keypoints as detection/ID signal | varies per paper ❓ | ❓ | skeleton toolkits themselves (MMPose etc.) usually Apache-2.0 |
+| **CVBallTracking** (`brettfazio`) | classic HSV/blob ball tracker | public repo | ⛔ **no license file** | algorithm idea fine; code not reusable |
+| **StrikerAI** (`KavinSivaharan`) | YOLO ball/player tracking | public repo | ⛔ **no license file** | reference only |
+| `cs25m116/Basketball-Player-Tracking` | student tracking project | public repo | ⛔ **no license file** | reference only |
+| `Manishmaurya89/...` (ball tracking) | community tracker | public repo | ⛔ **no license file** | reference only |
+| **TrackBox / TRACAB-class rigs** | broadcast-rig optical tracking | closed 🏢 | 🏢 | see systems table |
+
 ### Benchmarks & datasets (code vs data — often different!)
 
 | Benchmark | Code license | **Data license** |
 |---|---|---|
 | SportsMOT | repo: no license file | **CC BY 4.0** (per official mirror terms; GitHub page adds citation/challenge conditions) |
-| TeamTrack | **MIT** | research use via site (verify current terms at download) |
+| TeamTrack | **MIT** | ⛔ **not stated on the repo/site found so far** — ask authors before any product use |
 | SoccerNet (all tasks incl. ReID/GSR) | MIT | **research-only, non-commercial**; underlying broadcast footage remains copyright holder's |
 | DanceTrack | devkit MIT | **CC BY-NC 4.0** (annotations); video stills from creators |
 | MOT17 / MOTChallenge | MIT-ish devkits | **CC BY-NC-SA 3.0** — explicitly non-commercial |
 | NBA SportVU dumps | n/a | NBA terms: personal/research only; official tracking endpoints discontinued |
 | Roboflow Universe basketball sets | n/a | per-dataset, often CC BY 4.0 but **verify each** |
+| CrowdHuman | research/non-commercial (owner-stated) ⚠️ | same 🔴 |
+| Market-1501 / CUHK-SYSU / PRW | ❓ **no formal license** — research community convention only | ❓ same; pretrained ReID weights inherit the ambiguity |
+| TrackNet-family racquet datasets | ❓ mixed/unstated per release | ❓ |
+| Basketball-51 (action dataset, seed repo) | ❓ unstated | ❓ treat research-only |
 
 Full dataset descriptions: `07-datasets.md`.
 

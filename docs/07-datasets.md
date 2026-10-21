@@ -9,7 +9,9 @@ license**. Where no license is stated, that is called out explicitly, because
 
 **License legend:** 🟢 permissive (commercial-usable) · 🟡 attribution/conditions ·
 🔴 research/non-commercial only · ⛔ no stated license (verify before use) ·
-🏢 proprietary (not publicly available)
+🏢 proprietary (not publicly available) · ❓ existence/availability itself
+could not be confirmed — entry kept for completeness, do **not** rely on it
+without resolving it first.
 
 ---
 
@@ -102,6 +104,21 @@ number annotations; released code expects that data format. Data itself is
 sports-clip based — check the repo README for what is provided vs referenced.
 - Access: https://github.com/mkoshkina/jersey-number-pipeline
 - **Code: no LICENSE file** ⛔ · data: research context 🔴
+
+### Unverified candidates (kept on record, marked ❓)
+
+Earlier research notes referenced datasets I could not trace through any
+channel tried (GitHub search, Hugging Face datasets API, web search, arXiv
+API). They are **listed rather than dropped**, with the honest status:
+
+| Candidate | Claimed contents | Status |
+|---|---|---|
+| **TeamSportAI** | purported sports collective-behaviour dataset (NeurIPS-style D&B track) | ❓ **not found** — name may be misremembered; re-derive the citation before use |
+| **JPSD** / "J" jersey-number dataset (Japanese pro soccer?) | purported jersey-number recognition set | ❓ **not found** — the arXiv ID recorded earlier (2203.00779) is a biology paper ⇒ the note was wrong at source |
+
+If these resurface, verify existence *and* license before adding them to any
+build plan; until then treat SportsMOT + SoccerNet-ReID + RF Universe as the
+complete public option set.
 
 ### Basketball-51 & the action-recognition datasets (adjacent)
 From the seed repo (`01-repo-review.md`): Basketball-51 (51-action basketball

@@ -104,6 +104,13 @@ Tracking queries inside a DETR; tracks through occlusion via query propagation.
 ◆ **TransTrack** — Sun et al., ECCV 2021 — arXiv: https://arxiv.org/abs/2012.15460
 ◆ **TrackFormer** — Meinhardt et al., CVPR 2021 — arXiv: https://arxiv.org/abs/2101.02702
 ◆ **QD-TRACK: Quasi-Dense Similarity Learning** — Pang et al., CVPR 2021 — arXiv: https://arxiv.org/abs/2103.16882
+◆ **MixSORT** — Cui et al., introduced as a baseline in the SportsMOT paper, ICCV 2023
+Mixes high-quality and low-quality detections across association rounds
+(ByteTrack generalization) with motion+appearance fusion; among the strongest
+reported SportsMOT baselines. Code lives inside the SportsMOT repo
+(**no license file** ⛔ — see `06`).
+◆ **MOTRv2** — CVPR 2023 — point-transformation end-to-end tracker; completes
+the transformer-tracking line. Code availability ❓ not verified this session.
 
 ◆ **Track Anything / Segment Anything (SAM)** — Kirillov et al., 2023 (+ SAM2 2024)
 SAM masks + per-track propagation (Track-Anything, SAMTrack): ideal for
