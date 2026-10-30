@@ -125,7 +125,7 @@ From the seed repo (`01-repo-review.md`): Basketball-51 (51-action basketball
 video clips), used by the Informatica 2024 3D-CNN study and ACA-Net/EITNet
 follow-ups. Downstream consumers of our tracking output, not training data for
 it — listed for completeness.
-- Access: via `references/jjdredd-ai-research/` links
+- Access: via the org-file links in the parent directory (`../basketball.materials.org`), `../other.org`
 - License: mixed ⛔ (dataset terms rarely stated; treat research-only 🔴)
 
 ---

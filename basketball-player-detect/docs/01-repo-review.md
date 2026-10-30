@@ -1,7 +1,7 @@
 # Review of the `jjdredd/ai-research` Repository
 
-Repo: https://github.com/jjdredd/ai-research (mirrored locally under
-`references/jjdredd-ai-research/`). Contents: two org-structured link lists
+Repo: https://github.com/jjdredd/ai-research (its raw materials live directly
+in the parent directory, `../`). Contents: two org-structured link lists
 (`basketball.materials.org`, `other.org`), one PDF
 (`6100-18042.pdf`), and experiment notes (`mmaction2-basketball51-results.md`).
 

@@ -6,8 +6,8 @@ Goal: from a **video recording of a basketball game**, **detect** every player,
 
 This repository captures the state of the art (papers, code, projects, products,
 algorithms) as of research conducted 2025-10, starting from the reference
-repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research)
-(which used to be mirrored under `references/`, but now it's situated one level above).
+repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research),
+whose raw materials live directly in the parent directory (the `ai-research` repo root).
 
 ## Contents
 
@@ -20,7 +20,7 @@ repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research)
 | [docs/05-literature-review.md](docs/05-literature-review.md) | Annotated **literature review / reading list**: papers, benchmarks, and systems for detection, tracking, team assignment, ReID & jersey-number recognition — single-algorithm methods and full pipelines, in reading order, with a 10-paper core path |
 | [docs/06-licenses-and-patents.md](docs/06-licenses-and-patents.md) | License & IP table for every method/model/dataset in the reading list (code, weights, data terms) + patent landscape (SportVU/Second Spectrum/Hawk-Eye…) and commercial-safe build combinations |
 | [docs/07-datasets.md](docs/07-datasets.md) | Dataset catalog for detection/tracking/identification: SportsMOT, TeamTrack, SoccerNet, DanceTrack, SportVU dumps, Roboflow Universe, pretraining sets, ball-tracking corpora — each with contents, access and **license terms** |
-| [references/jjdredd-ai-research/](references/jjdredd-ai-research/) | Mirror of the reference repo (org files, PDF, mmaction2 results) |
+| [`..`](../) | The reference repo's raw materials at the `ai-research` root (org files, PDF, mmaction2 results) |
 | [notes/](notes/) | Raw parsed text of papers we read in full |
 
 ## TL;DR
