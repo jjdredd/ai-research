@@ -356,7 +356,7 @@ Then branch: §Part 2 for one-network alternatives, §Part 6 for system design,
 
 ## Cross-references in this repo
 
-- `06-licenses-and-patents.md` — code/weights/data licenses & patent landscape for every entry here
+- `06-licenses-and-patents.md` — code/weights/data licenses, **open-weights availability per model** (✅/⚠️/❌), & patent landscape for every entry here
 - `07-datasets.md` — dataset-by-dataset catalog with license terms
 - `02-solution-landscape.md` — tabloid version of this list with commentary
 - `03-recommended-architecture.md` — pipeline these references inform
