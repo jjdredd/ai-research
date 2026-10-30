@@ -7,7 +7,7 @@ Goal: from a **video recording of a basketball game**, **detect** every player,
 This repository captures the state of the art (papers, code, projects, products,
 algorithms) as of research conducted 2025-10, starting from the reference
 repository [jjdredd/ai-research](https://github.com/jjdredd/ai-research)
-(mirrored under `references/`).
+(which used to be mirrored under `references/`, but now it's situated one level above).
 
 ## Contents
 
