@@ -1,0 +1,979 @@
+    https://doi.org/10.31449/inf.v48i13.6100    Informatica 48 (2024) 97-110  97
+
+
+
+    3D-CNN-based Action Recognition Algorithm for Basketball Players
+
+
+    Zhilei Cui
+    College of Physical Education, Taiyuan University of Technology, Taiyuan 030024, China
+    E-mail: cuizhilei@tyut.edu.cn
+
+Keywords: Basketball technical action; Target detection; Action recognition; Single shot multibox detector; 3D-CNN
+
+    Received: April 21, 2024
+            The development of artificial intelligence has led to numerous methods for human action recognition.
+            In basketball, its technical action features are obvious, so the feasibility of recognizing and classifying
+            its technical actions is high. However, the existing action recognition methods are difficult to
+            effectively utilize continuous frames, resulting in poor accuracy of basketball technical action
+            recognition. Thus, the study suggests a continuous frame action identification approach based on the
+            single-shot multi-edge detection algorithm and 3D convolutional neural network in order to enhance
+            the performance of technical action recognition. The experimental results revealed that single shot
+            multibox detector algorithm accurately recognizes the human body in the image and labels its
+            confidence level. In addition, in basketball action recognition, the loss value of original frame was 6.0
+            and 6.8 on the training set and validation set, respectively, and the loss value of crop frame was 5.1
+            and 5.9 on the training set and validation set, respectively. 3D convolutional neural network achieved
+            the highest classification accuracy of about 88.3% for the stop-and-go jump shot action in the original
+            frame and its crop frame with an average recognition rate of about 90.3%. The recognition accuracy
+            of original frame and crop frame increased with the increase of epoch, and reached a stable state
+            when the epoch was 30. The presence of variable features in the European step, change of direction,
+            and Sam Gould's action led to misjudgment of both original frame and crop frame. The accuracy of
+            the original frame training set and test set were 0.91 and 0.81, respectively, and the accuracy of the
+            crop frame training set and test set were about 0.92 and 0.81, respectively. After the fusion of the
+            original frame features and the crop frame features, the average recognition rate was about 94.6%,
+            which was significantly higher than that of the single-resolution recognition. In addition, with the
+            increase of frame input, the F1-score gradually increased, while the false positive rate gradually
+            decreased. When the frame input was 7, the F1-score and the misjudgment rate were 0.79 and 0.19,
+            respectively. When the frame input was 16, the F1-score and the misjudgment rate were 0.92 and 0.05,
+            respectively. The above results show that the continuous frame action recognition method based on
+            single-shot multi-frame detection algorithm and three-dimensional convolutional neural network can
+            realize the accurate recognition of the technical action in basketball video.
+            Povzetek: Predstavljen je algoritem za prepoznavanje košarkarskih akcij, ki temelji na 3D-CNN in
+            algoritmu za zaznavanje večrobnih okvirjev. Rezultati kažejo, da metoda bistveno izboljša točnost
+            prepoznavanja tehničnih akcij.
+
+                                                                       recognition methods, two stream convolutional neural
+    1 Introduction                                                     network (TSCNN), long short-term memory (LSTM)
+                                                                       network and 3D convolutional neural network (3D-CNN)
+    Basketball, the second most popular sport globally, boasts         [1-2].                 Among the recognition methods based on
+    over 2.7 billion fans. With the rise of short-video                single-frame video images the selected frames are
+    platforms, all kinds of high-quality videos provide people         difficult to represent the whole video and it is difficult to
+    with rich spiritual food. Basketball technical videos and          match the extracted features with the action features. The
+    game highlights are popular among basketball fans.                 spatial convolution of TSCNN is only performed on a
+    Recognizing the technical moves in the videos can                  single frame and cannot learn pixel-level correspondence
+    promote the sport of basketball. In the field of video             between spatial and temporal features. Although LSTM
+    action  recognition  (AR),   among    the          traditional     can handle the timing problem better, it suffers from long
+    recognition methods, improved dense trajectorie (iDT)              training time and high consumption of computational
+    has the best recognition performance, but its recognition          resources. 3D-CNN, on the other hand, can effectively
+    speed is too slow. Moreover, the emergence of deep                 capture temporal and spatial information and can handle
+    learning provides new ideas for video AR, common deep              volumetric data, and thus performs well in video
+    learning AR methods are single-frame video image-based             classification              and AR [3-5]. However, due to the
+
+98  Informatica 48 (2024) 97-110    Z. Cui
+
+
+complexity of basketball technical action (BTA) and                 [8]. Li et al. proposed a detection model based on
+3D-CNN also suffers from the problem of long training               multi-block SSDA for the small TD problem of on-site
+time. Therefore, the study suggests a basketball video              monitoring of railroad drones. Experimental results were
+target detection (TD) and augmented reality (AR) model              obtained from this model. After segmenting the image
+based on single shot multibox detector (SSD) algorithm              into overlapping blocks, the model transfers the blocks
+and 3D-CNN in order to increase training speed and                  individually to the SSD and utilizes the concept of
+identification accuracy and decrease the consumption of             non-maximum suppression sub-layer suppression and
+computer resources. The innovation of the study is to               filtering algorithms were used to remove overlapping
+combine the     TD of SSD to generate                     AR of     frames from the sub-layers. The multi-block SSD model's
+dual-resolution 3D-CNN with low-resolution image input,             overall accuracy was shown to be 96.6% in experimental
+which provides a new idea for BTA recognition.                      findings, 9.2% better than the conventional SSDA [9].
+The study is divided into six chapters, in which the                For the problem of electromagnetic luminous surface
+introduction first provides background information and              defect detection, Xu et al. suggested an enhanced SSD
+explanations of the importance of the study. Chapter two            technique based on feature fusion, which employs the
+is a literature review, which will describe the SSD                 concept of feature pyramid network. The enhanced SSDA
+algorithm (SSDA) and related research on 3D-CNN.                    outperforms previous     algorithms in terms            of
+Chapter 3 is the study methodology, which will                      electromagnetic luminescence defect detection, according
+investigate the SSDA and dual-resolution 3D-CNN                     to experimental data [10].
+architectures. Chapter 4 is the experimental results, which         3-dimensional    convolution      neural           network
+will analyze the performance of the research methods, TD            (3D-CNN) is a popular choice in multi-channel image
+and AR. Chapter five is a discussion, which will analyze            processing because, in contrast to 2D-CNN, it is capable
+the advantages of the proposed method. Chapter 6 is the             of capturing discriminative features along spatial and
+conclusion of the research results, and will summarize the          temporal dimensions, generating multiple information
+research results of this paper.                                     channels from adjacent video frames, and performing
+                                                                    convolution and downsampling     in each           channel
+2 Related works                                                     independently to obtain the final feature representations
+The two-stage algorithm's candidate region generation               by combining the information from the video channels.
+and following pixel or feature resampling phases are                Xu and Zhang proposed a 3D-CNN gesture estimation
+removed by the SSDA, which combines the regression                  method. The method used the depth image to reconstruct
+concept     and the anchor     frame mechanism.             All     the 3D spatial structure of the hand, and converted the
+calculations are contained in a single network. As a result,        hand model to voxel grid by 3D-CNN, which in turn
+                                                                    realized the hand gesture estimation. Experimental results
+it is extensively employed in many different industries             revealed that the improved 3D-CNN model can achieve
+and offers the benefits of simple training and quick speed.         an average accuracy of 87.98% with an average absolute
+For the problem of video face detection, Liu et al.                 error of only 8.82 mm [11]. Rehman et al. proposed a
+suggested a face detection approach based on SSDA and               3D-CNN-based tumor classification model for the
+Res-Net. This method uses kernel correlation filtering to           problem of brain tumor detection and automated
+track successive n frames and Res-Net as the core                   classification. This model extracted the brain tumor
+network of SSDA. The approach can achieve real-time                 features by 3D-CNN and realized the verification and
+detection and increase the precision of video face                  classification of the features by feed-forward neural
+detection, according to experimental data [6]. For the              network. The outcomes revealed that this 3D-CNN model
+purpose of solving the vehicle recognition problem in               could classify brain tumors with an accuracy of up to
+intelligent transportation, Zhao et al.             suggested a     98.32% [12]. For the problem of concentration estimate
+detection approach based on the SSDA and feature                    of gas mixtures, Pareek et al. suggested a concentration
+pyramid augmentation strategy. By using a feature                   estimation network based on 3D-CNN and constrained
+pyramid augmentation strategy, the method enhanced                  Boltzmann machine. The network processed sensor array
+SSD's feature   extraction      (FE) capabilities,       and it     data using 3D-CNN, and for end-to-end gas concentration
+enhanced its localization capabilities by cascading the             estimation, it used a constrained Boltzmann machine. The
+detection mechanism. According to experimental results,             results indicated that the network was able to accurately
+this method's detection time is less than that of previous          predict the concentration of the gas mixture [13].
+approaches [7]. Liu et al. proposed a detection model               Chaddad et al. proposed a prediction model based on
+based on SSDA and depth separable fusion hierarchical               Gaussian mixture model and 3D-CNN for the problem of
+feature model for the pedestrian detection problem. The             predicting  the  survivability  of  pancreatic      ductal
+model effectively reduced the complexity of the model by            adenocarcinoma patients. The model utilized a Gaussian
+depth separable convolution and realized feature fusion             mixture model to model the distribution of learned
+enhancement by using hierarchical structure. On the                 features    obtained from     preoperative        computed
+INRIA dataset, experimental results showed that the                 tomography, followed by FE and learning via 3D-CNN,
+improved model's leakage detection rate was only 9.68%              and finally a robust classifier based on random forest to
+
+    3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110  99
+
+
+    predict survival outcomes. The experimental results               learned more advanced spatial representation through
+    revealed that the ROC of this model was 0.72, which was           2D-CNN. According to experimental findings, the hybrid
+    much higher than other models [14]. For the purpose of            spectral   convolutional neural network       successfully
+    classifying hyperspectral images, Roy et al. presented a          decreased  model complexity while increasing           the
+    hybrid spectral convolutional neural              network-based   classification accuracy of hyperspectral images [15]. A
+    classification model. The model utilized 3D-CNN for               summary of the related literature is shown in Table 1.
+    joint spatial-spectral feature representation and further
+
+                         Table 1: Summary of related literature
+      Author                                Method                                      Index
+  Liu et al. [6]      A face detection method based on the SSD algorithm        Accuracy is over 92%
+                                          and Res-Net
+  Zhao et al. [7]     Vehicle detection method based on SSD algorithm and     80.6% accuracy and 14 ms
+                             feature pyramid enhancement strategy                  detection time
+  Liu et al. [8]       Pedestrian detection model based on SSD algorithm    The missed detection rate is
+                     and deep separable fusion hierarchical feature model               9.68%
+   Li et al. [9]          A small object detection model based on the        The accuracy rate is 96.6%
+                                   multi-block SSD algorithm
+  Xu et al. [10]        Improved SSD algorithm based on feature fusion          Accuracy is over 90%
+                        A 3D-CNN gesture estimation method based on the        The average accuracy is
+ Xu and Zhang [11]  end-to-end hierarchical model and physical constraints  87.98%, and the mean absolute
+                                                                                error is only 8.82 mm
+Rehman et al. [12]        Tumor classification model based on 3D-CNN       The highest accuracy rate is up
+                                                                                      to 98.32%
+Pareek et al. [13]        Concentration estimation network based on a           Accuracy is over 91%
+                            3D-CNN and a confined Boltzmann machine
+                    Pretive model of viability in patients with pancreatic
+Chaddad et al. [14]     ductal adenocarcinoma based on a Gaussian mixed            The ROC is 0.72
+                                       model and 3D-CNN
+  Roy et al. [15]     Hyperspectral image classification model based on a                        The accuracy rate is nearly 99%
+                         hybrid spectral convolutional neural network
+
+    In summary, both SSDA and 3D-CNN are widely                       and 3D-CNN.
+    used in image processing. However, facing the problem
+    of complex BTA and strong correlation of consecutive
+    frames of basketball video, it is difficult for existing          3.1 Video cropping algorithm based on SSDA
+    image processing techniques to accurately recognize and           Before the recognition of video actions, the video needs
+    classify BTA. Based on this, the study proposes a BTA             to be cropped to select the motion region and reduce the
+    recognition algorithm based on SSDA and 3D-CNN with               size of image frames. As a lightweight TD algorithm, the
+    dual-resolution 3D-CNN, in order to realize the accurate          SSD method addresses the drawback of the YOLO
+    recognition and classification of BTA.                            algorithm, which is its inability to detect small targets,
+                                                                      with its advantages of high detection accuracy and quick
+                                                                      operation time.                Although both SSDA and YOLO
+    3 Action recognition algorithm for                                algorithm perform detection through CNN network,
+                                                                      SSDA performs detection in the intermediate layer
+                                     basketball video based on SSDA   instead of after the fully connected layer. The SSDA first
+    and 3D-CNN                                                        generates prediction frames (PFs) on the input image
+    Basketball sports videos can accurately reflect the               (IM), then labels the locations based on the PFs and
+    technical movements of basketball and have certain                feature maps (FMs), and outputs the classification
+    advantages in teaching. However, due to the wide variety          categories.  Lastly,  the          non-maximum suppression
+    of BTAs, it is difficult to classify them by traditional AR       technique is used to eliminate the redundant and PFs that
+    techniques, and there is a lack of methods to utilize             do not match the confidence expectation [16-17]. Figure
+    continuous image frames. Therefore, in order to better            1 depicts the SSDA's framework.
+    recognize and classify BTAs in sports videos, the study
+    proposes a video clipping and AR method based on SSD
+
+ 100  Informatica 48 (2024) 97-110    Z. Cui
+
+
+
+     38×38×512  19×19×1024    10×10×512             5×5×256
+ |    VGG up to    VGG up     Convolutional     , Convolutional
+        conv4_3    to FC7     Layer                 Layer
+ Inputimage          |      1×1×256             3×3×256
+  Normalization        Avg                          Convolutional
+     pooling                                        Layer
+
+
+                       Detectors &           Detectors &       Detectors &        Detectors &          Detectors &     Detectors &
+                     Classifiers 1         Classifiers 2       Classifiers    6   Classifiers 5        Classifiers 3   Classifiers 4
+                                              Fast    Non-maximum Suppression (Fast NMS)               gd
+                                             Figure 1: The framework of the SSDA
+
+                          In Figure 1, the base network of the SSDA is VGG       operations are performed, and the CK and activation
+ 16, and it is modified. Firstly, the fully connected layers                     function for the convolutional operations are the     3,3
+ FC6 and FC7 of VGG 16 are replaced with convolutional                           and the ReLU functions, respectively.      Since        the
+ layers (CLs) of 3 3          and  1 1 ,            then the Dropout and       convolution operation results in the loss of image
+ FC8 layers are deleted, and then the Pool 5 of the pooling                      boundary information, in order to preserve the boundary
+ layer is changed to 3 3                 with stride=5. At the same time,       features, it is necessary to set the Padding parameter to
+ in order to obtain a denser score mapping, the experiment                       same, which indicates that the image boundary is 0 [20].
+ also includes the Atrous algorithm, and more CLs are                            The resulting features are subjected to the maximum
+ also added to VGG 16 in order to increase the FMs. The                          pooling process following the convolution. Then, Conv 2
+ additional network is then a CNN network with gradually                         to 5 performs the identical action. It is important to note
+ decreasing scales, which can be used to detect targets of                       that Convolution 3 to 5 require three convolution
+ different scales [18-19]. In the SSDA, the VGG16 and the                        computations total. Taking padding=1 as an example, the
+ additional CLs are responsible for the FE: first, the size of                   padding operation is shown in Figure 2.
+                        ,                  then the convolutional kernel
+ the IM is 300 300 3
+ (CK) of Conv 1 is initialized and two convolutional
+
+13                                  14        15          16                     0           0    0    0     0        0
+
+                                                                                 0           13  14   15     16       0
+ 9                                  10     |  11          12    —)               0           9   10   11     12       0
+ 5                                  6         7           5                      0           5    6    7     5        0
+
+                                                                                 0           1    2    3     4        0
+ 1                                  2         3           4                      0           0    0    0     0        0
+
+                                              Figure 2: Padding operation diagram
+
+                     In Figure 2, after many convolutions, the size of the       Pool 5, in order to cope with this change, Atrous
+ output picture will keep decreasing. In order to avoid the                      algorithm,      which performs the    null    convolutional
+ size of the picture becoming smaller after convolution,                         operation, is introduced in VGG 16, and its The two CKs
+ padding is applied to the periphery of the picture. When                        for convolution computation are       1,1  and    3,3 ,
+ padding=1, the size of padding is 1, the value of padding                       respectively. Figure 3 displays the schematic diagram of
+ is 0, and the output size changes from the original                 4 4        the void convolution.
+ to                       6 6 . Since the SSDA changes FC6 and FC7 of VGG
+ 16 into CLs and changes the stride of the pooling layer,
+
+3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110 101
+
+
+
+
+
+
+
+
+
+
+                                      Figure 3: A Schematic representation of the atrous convolution
+
+                From Figure 3, it can be observed that for the                                  s       - s
+                                                        3 3 ,         s     = s     +           max      min
+conventional convolution after the feeling field is                    k              min                 (      k -1 ,k 1,m    (2)
+the feeling field can be enlarged by performing the cavity                                              m-1
+convolution operation on its FM, and the size of the               In Equation (2),     sk           denotes the ratio of the a priori
+feeling field at this time is  7 7  . Continuing to carry out     frame size relative to the image,         max s    and min s denote
+the cavity convolution, the size of the feeling field is           the maximum and minimum values of the ratio,
+enlarged to       .         After cavity convolution, the two     respectively,    which are generally 0.2 and 0.9.                 m
+convolution calculations are carried out by Conv 6, and            denotes the number of FMs and          k         denotes the number
+the CKs are     1,1 and     3,3 ,    respectively, and the     of a priori frames. It is worth noting that the a priori box
+second convolution calculation is of a step size of two.           scale obeys the linear increment rule, i.e., as the size of
+Then the same operation is carried out by Conv 7 to 9. It          the feature image decreases, the a priori box scale
+is worth noting that Conv 7 to 9 all step to carry out the         increases linearly. Equation (3) displays the default box
+filling operation. After the above operations, six FMs can         (DB) height calculating formula.
+be obtained, and the detection results can be obtained                                              h a          s
+according to the FMs. The bounding box's position and                                                 k r  =     k                 (3)
+the FMs' confidence are included in the detection value,                                                         ar
+which is     obtained using   the     3,3        convolution
+calculation. While the number of CKs needed for the                    r a
+bounding box location is four times the number of a                In Equation (3),     k h        is the height of the DB,        r a
+priori frames, the CKs needed for classification in the            represents the aspect ratio of the prediction box (PB), and
+prediction stage are calculated as the product of the
+number of a priori frames needed for the FM and the                    
+                                                                   its value set is  ,
+classification category [21-22]. Since each target of the              2 3                              . The formula for calculating
+FM corresponds to a number of default frames, whereas              the width of the DB is shown in Equation (4)
+for the targets in the PFs a convolution operation is
+performed to obtain confidence and bounding box                                                          wa ka
+                                                                                                        r = s  k     r             (4)
+location information, and the true values are matched                  a                                   represents the width of the
+with the default frames to obtain negative and positive            In Equation (4),     wk r
+samples. The intersection over union (IoU) formula on              DB. The formula for calculating the center of the PB is
+the concatenation of predicted and true frames is given in         shown in Equation (5).
+Equation (1).                                                                                     i                  +
+                                                                                                    0.5    , j   0.5               (5)
+                                                                                                
+    IoU =                                                  (1)                                      f k          f     
+                                                                                                                 k
+                                                                  In Equation (5),     f    k             denotes the size of the FM.
+In Equation (1), A and     B             denote the PF and the     Since more DBs increase the time required for training
+true frame, respectively. As the number of CNN layers              and computational complexity, some of the CLs remove
+increases, the abstraction level of the extracted image            the DBs with aspect ratios of 3 and 1/3. Moreover, the
+features increases gradually. Whereas, since neurons are           SSDA also eliminates the DBs where the recognized
+locally aware and locally connected, the underlying FM             object is located outside the box and the PBs where the
+retains a large amount of detail information. When the             confidence is less than the set prediction, this operation is
+multi-scale FMs of the SSDA are matched with the PFs,              realized by the non-maximal value suppression algorithm.
+they become equal to distinct perceptual fields, which
+improves the SSDA's recognition capability. The PF scale
+calculation formula is shown in Equation (2).
+
+102  Informatica 48 (2024) 97-110    Z. Cui
+
+
+3.2 3D-CNN-based video action recognition                       the temporal order of the motion needs to be considered.
+                                                                The 3D-CNN increases the temporal              dimension
+algorithm                                                       compared to the traditional 2D-CNN, which makes the
+After cropping the video by the SSDA, the motion region         3D-CNN effectively deal with the temporal order of
+can be selected,           which reduces the difficulty for     actions. The 3D convolution is shown in Figure 4.
+subsequent AR. When performing BTA recognition,
+since the input is a sequence of video frames. Therefore,
+not only the spatial representation of the motion but also
+
+
+
+
+
+
+
+
+
+
+                                                   Time
+                                                   Figure 4: 3D convolution schematic diagram
+
+                                    In Figure 4, 3D convolution can produce multiple     convolution result of the previous layer. Since the
+FMs by sharing a CK, and each FM contains time                                           performance of CNN is affected by factors such as
+dimension information between them. The CKs in the
+time dimension are encoded with different colors and the                                 hyperparameters and algorithmic architecture, the study
+same colors share weights. FE is achieved by applying                                    improves the dual-resolution 3D-CNN in order to reduce
+the same 3D CK to the overlapping 3D cubes in the input                                  the training time while ensuring the training quality. The
+video. The 3D convolution formula is given in Equation                                   so-called dual-resolution 3D-CNN refers to processing
+(6).                                                                                     the same image at different resolutions and then fusing its
+                     H                                                         
+                                  W S i
+                              -1 i   -1i-1         +     )(         +     )( + )
+                                                                             k
+        v       xyz                            hws                                       features to improve the AR capability. However, since
+                lij    = f                                   V(x h y w z s     b (6)
+                              h=0    w=0 s=0   ijm           (   -1)                     the image is composed of numerous pixel points, the
+                 In Equation (6),    i  and        j              denote the feature     amount of data will be larger when it is directly input,
+                                                                                         resulting in longer training time [23-24]. The color
+blocks in the previous layer and the CKs in the current                                  information of the image is not very useful in AR, so the
+layer,  respectively.           l    denotes the time and      lji v             xyz     image needs to be grayscaled to reduce the amount of
+denotes the 3D convolution result.            Hi     and     Wi               denote
+                                                   m                                     data, and also to avoid the interference of the background,
+the height and width of the CK, respectively, and                                        people's clothing and light. The 3D-CNN architecture is
+denotes the index of the FM connected to the current                                     shown in Figure 5.
+        hws
+layer.  ijm k   denotes the value of the CK at     (h w, )                     , and
+i S                            denotes the size of the CK in the spectral dimension.
+                                                 x h y w z s+ )( +     )( + )
+ij b                                                      Vi j(
+        denotes the offset, and                ( -1                      denotes the
+                                                   )
+
+
+                                                                                             FC6     FC7
+                              Pooling          Pooling  Pooling                              Pooling      Pooling
+        Input
+                Conv1 32                       Conv2 64  Conv3 128                       Conv4 256        Conv5 256
+                                                                       Figure 5: Architecture of the 3D-CNN
+
+                     In Figure 5, the original frame (OF) 3D-CNN in AR                   layer are  2,2,1     , and the rest of the pooling windows
+consists of five CLs, FC6 and FC7. The IM can get the                                    and steps     are  2, 2, 2 . In addition,       crop frame
+final result by Softmax after five consecutive convolution                               (CF)-3D-CNN differs from OF-3D-CNN in that it
+and pooling operations and then two FCs. The CK size                                     consists of 4 CLs, FC5 and FC6, and all pooling windows
+and step size of the CLs are                   3,3,3   and 1,1,1 ,                   and steps are 2, 2, 2. In addition, to further improve the
+respectively, the pooling window and step size of the first                              training efficiency, the 2D weight parameters need to be
+
+
+
+
+
+
+
+
+
+
+                                                                                         Softmax
+
+3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110 103
+
+
+utilized  to     initialize  the              3D convolutional weight               After the OF image and CF image are processed by
+parameters     [25-26].                    Due to the high background    the dual-resolution 3D-CNN, the corresponding weight
+similarity of consecutive frame images, the 2D weight                    files will be obtained, which will be used as the model
+matrix needs to be utilized to initialize the 3D weight                  parameters for frame sequence prediction to obtain the
+matrix, which is calculated in Equation (7).                             feature vectors. At this time, the feature vectors need to
+                                                                         be fused to facilitate the classification and recognition of
+                                     W        3D  W   2    D             features. The feature fusion calculation formula is shown
+                                           t     =    t           (7)    in Equation (10).
+                                                      T
+    In Equation (7),     3D Wt      and            2D W denote the 3D    X =
+                                                                                                     X a
+                                                                        p q d                           +                       (10)
+weight matrix and 2D weight matrix, respectively, and                     ,,                               p q d, ,
+T               denotes the timing information. In addition, in order        In Equation (10), Y           denotes the final feature
+to get different 3D weight matrices, it is necessary to                  representation.  a X p q d  denotes the feature of OF image
+                                                                             ,,
+initialize their scaling, which is calculated in Equation                and b X p q d  denotes the feature of CF image. p   denotes
+                                                                             ,,
+(8).                                                                     the feature image height and   q        denotes the feature
+    3                                2D        = T                      image width. The final feature representation is used as
+    t     =W                              ,(  0,              (8)    an input to SVM to perform action classification
+                               t  t            t      t=1
+                                                                         recognition. SVM is chosen for AR because it can
+             In Equation (8), t           denotes a random constant.    effectively deal with high-dimensional data and linear
+Negative weights initialization is also required to set the              indivisibility, and it is based on the Vapnik-Chervonenkis
+values of the sub-matrices of the 3D weight matrix. The                  dimension principle and resultant risk minimization
+negative weights initialization formula is shown in                      [27-28]. The schematic diagram of SVM to find the risk
+Equation (9).                                                            minimization cutoff is shown in Figure 6.
+                                W3  D     = W    2D
+                                 t           2T  t
+                                                 - 1      = 1
+                                               T     t         (9)
+                                t = 
+                                           1     t T
+                              2
+                                             T
+
+    y                                                                    y
+
+                                                                             Optimal interface  Maximum
+                                                                                        classification distance
+
+                                               x                                                           x
+
+    Figure 6: Schematic diagram of SVM searching for the minimum risk boundary
+
+                In Figure 6, in the two-dimensional data space, there    this time, SVM can find the optimal dividing line by
+exist numerous straight lines that can classify the data.                minimizing the distance between the training samples and
+However, when the classification straight line is too close              the classification straight line. Figure 7 displays the
+to a certain sample, its sensitivity to the noise signal is              schematic diagram used by SVM to classify linearly
+high, resulting in a weak generalization ability, so the                 indivisible data.
+classification effect of the straight line is not optimal. At
+
+
+
+
+
+                                           Mapping                                                   [|]
+
+                                                                         A a A
+
+
+                             Figure 7: Schematic diagram of linear indivisible data classification
+
+    104  Informatica 48 (2024) 97-110    Z. Cui
+
+
+
+
+                                         When faced with linearly indivisible data, as in                                   c
+    Figure 7, SVM will use the kernel function to map the                                                               = c
+                                                                                                                                1-t
+    low-dimensional              linearly              indivisible      data    into  the                                   e     1                  (15)
+    high-dimensional               space,              creating          high-dimensional                                =  e
+                                                                                                                                1-t
+    linearly divisible data. Then the optimal classification                                                                       2
+    hypersurface is obtained in the high-dimensional space by
+    linearly differentiable method [29-30]. In addition, when                                 Since the initial values of the momentum vector and
+    training the 3D-CNN model, a suitable loss function is                                    the gradient-squared accumulation vector are both 0, the
+    needed to realize the weight update. The update strategy                                  correction facilitates the improvement of both during the
+    is mini-batch and the loss function is shown in Equation                                  initial phase of training.
+    (11).
+                 loss =
+                1     u                                                                       4 Video action recognition result
+              -              x                                                    (11)
+                                i log             z            + - x    )log 1( z )
+                    u =i                               i           i        i                 analysis
+                      1
+                                                                                              Among basketball enthusiasts, basketball instructional
+In Equation (11),                             u                   denotes the size of the     videos and basketball jams are popular and widely
+    mini-batch, and   x         and z                            denote the predicted and     studied and imitated. To enhance the technical action
+                      i                       i
+    true values of the                           i th sample in each batch, respectively.     learning method available to basketball enthusiasts, the
+    The gradient descent formula is shown in Equation (12).                                   study suggests a video AR approach that utilizes
+                                                                                              3D-CNN and SSD. The study will evaluate the CF
+                                                            t-1      ( )            (12)     generation of SSDA and the AR performance of 3D-CNN
+                                                                                              in order to assess the recognition performance of the
+                                                                                              approach. The datasets for the COCO and VOC, which
+        In Equation (12),                        wt         denotes the weights,             contain 328,000 images with 2,500,000 instances labeled
+    denotes the learning rate, and                           J w()       denotes the cost     and more than 5,000 examples classified in 82 out of 91
+    function. Additionally, the study uses the Adam optimizer                                 categories, respectively, will be used for the SSDA tests.
+    to shorten the training period in order to guarantee the                                  There are twenty-one categories in the VOC dataset,
+    training rate. At this time, the weight calculation formula                               including bicycles, dogs, and cats. Since the SSDA's, goal
+    is shown in Equation (13).                                                                is to recognize people in images, irrelevant images will
+                                                                                              be ignored. The test for 3D-CNN will be performed on
+                                                                                              the homemade BTA dataset, which contains 1800 videos,
+                                      =         t-1       -c + s                         300 videos for each of the change of direction, tonbay,
+                                 t                                                  (13)     turn, Eurostep, Sam Gaudet, and sharp stop and jump
+                            c =          1 c + -             ) J w
+                                                                 w                            shot movements, and the length of each video is from 0.5
+                                                                                              s to 1.5 s. Fifty videos will be selected as the validation
+                                                                                              set for each category of movements in the BTA dataset,
+                    In Equation (13), c                     denotes the correction of the     and the rest of the videos will be used as the training set.
+    momentum vector and               e                     denotes the correction of the     In the experiments, the deep learning framework is Keras,
+    gradient-squared accumulation vector.                        c            denotes the     the programming language is Python 3.7, the batchsize
+    momentum vector and                           1         denotes     the     decaying     and Epoch are 32 and 50, respectively, and the image
+    momentum  hyperparameter.                                The         gradient-squared     input frame is 16 frames. The SSDA employs a
+    cumulative vector formula is shown in Equation (14).                                      confidence threshold of 0.9, a ratio of the prediction box
+                                                                                              minimum to original size of 0.2, a prediction box
+    e                        2e     2 (1 ) w                    w ()      ( )       (14)     maximum to original size of 0.9, and an IoU threshold of
+                                                                                              0.5. The original images have a resolution of 112112
+                                                                                              pixels, the cropped frames have a resolution of 6464
+                    In Equation (14), e                      denotes the gradient squared     pixels, and the number of output units in the fully
+                                              2                denotes the scaling decay     on COCO dataset are shown in Figure 8.
+    accumulation vector and                                                                   connected layer is 1024. The recognition results of SSDA
+    hyperparameter. The formulas for the correction of the
+    momentum vector and the gradient-squared accumulation
+    vector are given in Equation (15).
+
+3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110 105
+
+
+
+                                                   Car 1.00
+PersoBn.00 ats1        Person 1.00 .00 Person  1.00 .00 Person 1.00
+    1.00           Person 1.00    Person 1     Person 1
+                   Person 0.96     Frisbee     1.00 Frisbee 1.00   .98 Person0 0.98
+    Mitt 0.94                                      Person 0.92
+
+
+
+
+
+    Figure 8: Identification results of the SSDA on the COCO dataset
+
+          In Figure 8, the SSDA accurately recognizes the     SSDA accurately recognizes human beings in the images
+people in the pictures in all COCO datasets and marks         and marks the non-human objects for the purpose of
+their         confidence levels. Meanwhile, for non-human     recognizing only human bodies. The result of CF
+objects, the SSDA marks them with other colors and            generation based on SSDA is shown in Figure 9.
+shows the category they belong to. It can be seen that the
+
+                                                              Person 1.00
+
+
+
+
+
+
+
+
+
+
+    Figure 9: The crop frame generation results based on the SSDA
+
+    The human body in the picture is identified in Figure     the OF in order to generate the CF. As an example, the
+  9 following the SSDA's TD on the OF, and its confidence     CF generation result of the sharp stop jump shot in BTA
+level is         1.00. Then after OpenCV obtains the four     is shown in Figure 10.
+ coordinates of the detection frame, it can be clipped on
+
+
+
+
+
+
+
+
+
+
+                   Figure 10: Cropped frame of stop jumper
+
+               In Figure 10, the OF is processed by the SSDA to   CF is inconsistent, it will be preprocessed first to ensure
+obtain the human body in the detection frame of the               the consistent size when performing the subsequent AR
+continuous frame image of the video, and in order to              with dual-resolution 3D-CNN. The OF and CF loss
+avoid the interference of the spectators and other players,       values of the dual-resolution 3D-CNN are shown in
+the confidence threshold is adjusted up to 0.95 to obtain         Figure 11.
+the CF image of the target human body. Since the size of
+
+    106  Informatica 48 (2024) 97-110    Z. Cui
+
+
+
+
+    18                                                                                                                     From Figure 11(a), the loss value of OF on the
+                   Training set                Validation set                                           training set starts to converge at epoch of 19, with a loss
+    16                                                                                                 value of about 6.0. On the validation set, the loss value of
+    14                                                                                                  OF starts to converge at epoch of 21, with a loss value of
+    12                                                                                                     about 6.8. From Figure 11(a), the loss value of CF on
+    10                                                                                                  both the training and validation sets starts to converge at
+     8                                                                                                    epoch of 20, with loss values of 5.1 and 5.9. The above
+     6                                                                                                     results show that 3D-CNN converges better for CF, but
+    0          10                     20 Epoch 30        40               50                                 the convergence speeds of OF and CF are not much
+          (a) The loss value of the original frame                                                        different. The training confusion matrices of OF and CF
+                                                                                            are shown in Figure 12.
+
+    14             Training set              —     Validation set
+
+    12
+
+    10
+
+     8
+
+     6
+
+    0          10                     20 Epoch 30        40               50
+               (b) The loss value of the crop frame
+
+                                  Figure 11: Raw frame and trimmed frame loss values
+
+  Cross
+  over         0.84             0.08     |    0.00    [  0.08    | 0.00    |    0.00    Cross         0.86         0.06    |    0.00 [    0.08    | 0.00    | 0.00
+                                                                                        over
+
+  Euro
+  Step         0.09             0.85          0.00    |  0.06    | 0.00    |    0.00    Euro          0.11         0.89         0.00 |    0.00    | 0.00    | 0.00
+                                                                                        Step
+
+  Feint   |    0.00        |    0.00          0.89       0.00    | 0.06    |    0.05    Feint    |    0.00    |    0.00         0.91      0.00    | 0.06    | 0.03
+  Sham    |                |             |                                 |            Sham                  |            |                                |
+   God         0.10             0.07          0.00       0.83      0.00         0.00     God          0.10         0.06         0.00      0.84      0.00      0.00
+
+  Spin
+  Move    |    0.00        |    0.00     |    0.02    |  0.00      0.91         0.07    Spin     |    0.00    |    0.00    |    0.00 |    0.00      0.94      0.06
+                                                                                        Move
+
+  Stop         0.00        |    0.00     |    0.05    |  0.00    | 0.02         0.93    Stop          0.00    |    0.00    |    0.03 |    0.00    | 0.02      0.95
+jumpshot                                                                                    jumpshot
+
+                  Cross         Euro         Feint       Sham      Spin         Stop                 Cross         Euro         Feint     Sham      Spin      Stop
+                   over         Step                     God       Move         jumpshot              over         Step                   God       Move jumpshot
+            (a) The training confusion matrix of the original frame                                            (b) The training confusion matrix of the crop frame
+
+                           Figure 12: The training confusion matrix of raw frames and cropped frames
+
+                                       In Figure 12(a), among the ARs of OF, the highest                   cases for the recognition of European step, change of
+    classification accuracy is achieved for the hasty jump                                                  direction and Samgold action, but their misjudgment
+    shot action, which has an average recognition rate of                                   probabilities         have          decreased.          In      addition, the
+    about 88.3%, but there is still the possibility of being                                            classification accuracy for the sharp stop jump shot action
+    misclassified as a turnaround or tonbay. In addition, there                                          is still the highest, and its average recognition rate is
+    are cases of misclassification for the recognition of                                                 about 90.3%. It can be seen that the accuracy of AR has
+    Eurostep, change of direction and Samgold movements,                                                      been improved after recognition by the SSDA and
+    which may be due to the fact that all the above three                                                removal of interfering factors. The recognition accuracy
+    movements are characterized by change of direction. In                                  of OF and CF are shown in Figure 13.
+    Figure 12(b), in the AR of CF, there are still misjudgment
+
+
+
+
+
+
+
+
+
+
+Loss
+
+
+
+
+
+
+
+
+
+
+Loss
+
+    3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110 107
+
+
+
+
+
+
+
+
+
+
+          0.9                                                                             0.9
+          0.8                                                                             0.8
+          0.7                                                                             0.7
+          0.6                                                                             0.6
+          0.5                                                                             0.5
+          0.4                      Training set                Validation set             0.4            Training set      ——  Validation set
+          0.3                                                                             0.3
+          0.2                         n                                                   0.2
+           0                   10    20 Epoch                  30               40  50          0        10  20  Epoch     30          40        50
+                               (a) The accuracy of the original frame                                  (b) The accuracy of the crop frame
+
+                                       Figure 13: Recognition accuracy of raw frames and cropped frames
+
+                                     In Figure 13(a), the recognition accuracy (RA) of    average recognition rate after dual-resolution feature
+               OF in both the training set and the validation set rises                   fusion is about 94.6%, which is significantly higher than
+               with the increase of epoch, and both reach a stable state                  single-resolution recognition. The above results show that
+               when the epoch is 30, at which time its accuracy is about                  dual-resolution recognition has obvious advantages over
+                0.91 and 0.81, respectively, but the RA of the test set                   single-resolution recognition. Figure 15 displays the
+             fluctuates a lot in the interval of epoch 10 to 20. In Figure                dual-resolution 3D-CNN's recognition performance under
+               13(b), the RA of the CF training set and the test set is                   various frame inputs.
+                 basically the same with the trend of epoch, and also
+              reaches a stable state when the epoch is 30, at which time                                  Accuracy     ©    Precision
+                the RA is about 0.92 and 0.81, respectively. After the                    100%
+              training of OF and CF, the obtained weight file is used as                  95%
+                a parameter for the recognition of consecutive frames,                    90%
+               and the OF and CF features are fused and then classified                   85%
+                  by SVM to achieve continuous frame recognition. SVM                     80%
+               classification can realize AR for continuous frames. The                   75%
+              confusion matrix for feature fusion is shown in Figure 14.                  70%         7      10      13            16        19
+                                                                                       Frame input
+                                                                            (a) The accuracy and precision of
+  Cross           0.91                 |          [            |            |    different frame inputs
+  over                         0.02      0.00          0.07         0.00      0.00                        F1-measure      Error rate
+                                                                                              1.0                                            0.25
+  Euro            0.05                            |            |            |
+  Step                         0.93      0.00          0.02         0.00      0.00            0.9                                            0.20
+  Feint     |     0.00    |    0.00      0.94          0.00    |    0.03    | 0.03            0.9                                            0.15
+                                                                                              0.8                                            0.10
+
+  Sham      |             |            |                                    |                 0.8                                            0.05
+   God            0.05         0.02      0.00          0.93         0.00      0.00            0.7     7      10  13      16      19          0.00
+  Spin      |     0.00    |    0.00    [ 0.02     |    0.00         0.95      0.03                           Frame input
+  Move                                                                                          (b) The F1-measure and error rate of
+                                                                                                         different frame inputs
+  Stop            0.00    [    0.00      0.03     |    0.00    |    0.00      0.97    Figure 15: Recognition accuracy and precision under
+jumpshot
+                 Cross         Euro      Feint         Sham         Spin      Stop                  different frame inputs
+                  over         Step                    God          Move    jumpshot
+
+                     Figure 14: Confusion matrix of feature fusion                                    In Figure 15(a), the RA and precision rate gradually
+                                                                                          increase with the increase of frame input. When the frame
+                                     In Figure 14, compared with the single-resolution    input is 7, the accuracy and precision rate are 81.4% and
+                  recognition of OF and CF, the RA of each BTA after                      79.6%, respectively. When the frame input is 10, the
+               feature fusion has increased, and the sharp jump shot is                   accuracy       and     precision     are   85.6%     and  83.8%,
+               basically not misjudged as a turn, and the probability of                  respectively. In addition, when the frame input is 16, the
+                 misjudgment of the European step, change of direction                    accuracy and precision rate increase to 93.8% and 91.5%,
+               and Sam Gaudet's action has decreased significantly. The                   respectively. In Figure 15(b), as the frame input increases,
+
+
+
+
+
+
+
+
+
+
+ Accuracy
+
+
+
+
+
+
+
+
+
+
+Accuracy
+
+
+
+
+
+
+
+
+
+
+F-measure
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                             Error rate
+
+    108  Informatica 48 (2024) 97-110    Z. Cui
+
+
+    the F1-score gradually rises while the misclassification             F1-score      Recall
+    rate gradually decreases. When the frame input is 7, the          1.0                                    0.9
+    F1-score and the misjudgment rate are 0.79 and 0.19,             0.9                                     0.8
+    respectively. When the frame input is 10, the F1-score           0.8                                     0.7
+    and the misjudgment rate are 0.82 and 0.14, respectively.       0.7                                      0.6
+    In addition, when the frame input is 16, the F1-score and
+    the misjudgment rate are 0.92 and 0.05, respectively. The       0.6                                      0.5
+    reason why the larger the frame input is, the better the         0.5     7    10  13    16      19       0.4
+    performance of AR is because it is difficult to recognize            Frame input
+    the AR when the frame number is small, it is difficult to    Figure 16: The F1-score and recall of the dual-resolution
+    recognize the corresponding timing information, so its                  3D-CNN with different frame inputs
+    recognition performance for continuous frames is poor.
+    However, a high frame number also leads to an increase
+    in training time and training volume, which shows that                Figure 16 illustrates that the F1-score and recall of
+    the appropriate frame input has a greater impact on the        the dual-resolution 3D-CNN increase with the number of
+    AR performance for continuous frames. The F1-score and         input frames. The F1-score and recall are 0.70 and 0.80,
+    recall of the dual-resolution 3D-CNN with different            respectively, when the input frame is 13. When the input
+    frame inputs are shown in Figure 16.                           frame is 14, the F1-score and recall are 0.81 and 0.85,
+                                                                   respectively. The results of the ablation experiments of
+                                                                   the BTA recognition model based on the SSDA and
+                                                                   dual-resolution 3D-CNN are presented in Table 2.
+
+Table 2: Results of ablation experiments of basketball technical action recognition model
+   SSD                           Dual-resolution 3D-CNN    Accuracy
+    ×                                       ×                80.5%
+    ×                                       √                84.3%
+    √                                       ×                81.7%
+    √                                       √                89.2%
+
+    Table 2 indicates that in the absence of trimmed               opted to utilize the SSD object detection algorithm to
+    frames generated by the SSDA, the average RA of BTA            generate a basketball technique action cropping frame
+    is 80.5% for the ordinary 3D-CNN and 84.3% for the             dataset. The SSD detection algorithm is employed to
+    double-resolution 3D-CNN, respectively. In the case of         process the original frame images of BTA videos, thereby
+    cropped frames generated by the SSDA, the average RA           enabling the identification of the human body within the
+    of the ordinary 3D-CNN is 81.7% and 89.2% for the              detection box of each frame image. To prevent the
+    3D-CNN, respectively. The preceding results demonstrate        inclusion of background elements that might otherwise
+    that the SSDA and dual-resolution 3D-CNN are effective         interfere with the identification of the human subject, the
+    in enhancing the RA of actions.                                confidence threshold is increased to 0.9, thereby allowing
+                                                                   for the capture of the final human image. A hyperspectral
+    5 Discussion                                                   image classification model based on a hybrid spectral
+    In order to improve the efficiency of video analysis, a        convolutional neural network was proposed by Roy et al.
+    video cropping and action recognition method based on          [15]. The model employs 3D-CNN for joint spatial
+    SSDA and 3D-CNN was proposed. The average                      spectral feature representation, subsequently acquiring
+    recognition rate of this algorithm was about 94.6%, and        more advanced spatial representation through 2D-CNN.
+    the RA and precision gradually improved with the               However, the model necessitates the resolution of the
+    increase of frame input. A 3D-CNN pose estimation              image, which is unable to process images with disparate
+                                                                   resolutions.             The dual-resolution 3D-CNN model is
+    method based on an end-to-end hierarchical model and           capable of handling continuous technical action frames at
+    physical constraints was proposed by Xu and Zhang [11].        different input resolutions and fusing features at different
+    This method enabled gesture estimation by reconstructing       resolutions to enhance recognition capabilities.
+    the 3D spatial structure of hands using deep images and
+    converting the hand model into a voxel mesh via 3              6
+    D-CNN. Nevertheless, although     the   method            can        Conclusion
+    effectively utilize deep images, it is challenging to          Compared with other sports, basketball has significant
+    accurately identify objects in complex environments. In        technical      movement characteristics.  Therefore,      in
+    comparison to the research of Xu and Zhang, the                basketball     teaching, coaches often    teach    technical
+    proposed method exhibited a higher degree of RA. The           movements through video analysis. In addition, in
+    reason for the enhanced RA was that the research team          basketball leagues, analyzing the technical characteristics
+
+
+
+
+
+
+
+
+
+
+F1-score
+
+
+
+
+
+
+
+
+
+
+    Recall
+
+3D-CNN-based Action Recognition Algorithm for Basketball…    Informatica 48 (2024) 97-110 109
+
+
+of opposing athletes through game videos can also                    C. Senthilkumar, and S. Gopalakrishnan, "Human
+support the formulation of tactics. In view of this, in              action recognition using difference of gaussian and
+order to improve the efficiency of video analysis, the               difference of wavelet," Big Data Mining and
+study proposes a video cropping and AR method based                  Analytics, vol. 6, no.      3, pp.     336-346, 2023.
+on SSDA and 3D-CNN. The experimental results                         https://doi.org/10.26599/BDMA.2022.9020040
+revealed that the SSDA accurately recognizes the human                [3] L. Liu, L. Yang, W. Chen, and X. Gao, "Dual-view
+body in the image and labels its confidence level. While             3D human pose estimation     without           camera
+for non-human objects other color criteria were used and             parameters for action recognition," IET Image
+that detection was abolished. While in basketball AR, the            Processing, vol. 15, no. 14, pp. 3433-3440, 2021.
+loss values of OF on the training and validation set start           https://doi.org/10.1049/ipr2.12277
+to converge at epochs of 19 and 21, with loss values of              [4] G. Zhang, Y. Rao, C. Wang, W. Zhou, and X. Ji, "A
+6.0 and 6.8, respectively. The loss values of CF on both             deep learning           method for video-based action
+the training and validation set start to converge at epoch           recognition," IET Image Processing, vol. 15, no. 14,
+of 20, with loss values of 5.1 and 5.9, respectively. The            pp.        3498-3511,                           2021.
+3D-CNN achieved the highest classification accuracy of               https://doi.org/org/10.1049/ipr2.12303
+the sharp stop jumper action in the OF of about 88.3%. In            [5] Q. Men, E. S. L. Ho, H. P. H. Shum, and H. Leung,
+addition, due to the fact that the European step, change of          "Focalized contrastive view-invariant learning for
+direction and Samgold action all had change of direction             self-supervised skeleton-based action recognition,"
+features, which led to its misclassification situation. The          Neurocomputing, vol. 537, no. 7, pp. 198-209, 2023.
+recognition of CF by 3D-CNN was similar to that of OF,               https://doi.org/10.1016/j.neucom.2023.03.070
+but its average recognition rate was 90.3%, which was                 [6] Y. Liu, R. Liu, S. Wang, D. Yan, B. Peng, and T.
+higher than that of OF. The RA of OF and CF both epoch               Zhang, "Video face detection based on improved
+increased, and both reached a stable state when epoch                ssd model and target tracking algorithm," Journal of
+was 30. The accuracy of the OF training set and the test             Web Engineering, vol. 21, no. 2, pp. 545-567, 2022.
+set were 0.91 and 0.81, respectively, and the RA of the              https://doi.org/10.13052/jwe1540-9589.21218
+CF training set and the test set were about 0.92 and 0.81,           [7] M. Zhao, Y. Zhong, D. Sun, and Y. Chen, "Accurate
+respectively, with a small difference between the two. In            and efficient vehicle detection framework based on
+addition, after fusing OF features and CF features, the              ssd algorithm," IET Image Processing, vol. 15, no.
+average recognition rate was about 94.6%, which was                  13,        pp.        3094-3104,                2021.
+significantly higher than the single resolution recognition.         https://doi.org/10.1049/ipr2.12297
+In addition, with the increase of frame input, the RA and              [8] D. Liu, S. Gao, W. Chi, and D. Fan, "Pedestrian
+precision rate gradually increased. When the frame input             detection           algorithm based on improved ssd,"
+was 7, the accuracy and precision rate were 81.4% and                International Journal of Computer Applications in
+79.6%, respectively. When the frame input was 16, the                Technology, vol. 65, no. 1, pp. 25-35, 2021.
+accuracy and precision increased to 93.8% and 91.5%,                 https://doi.org/10.1504/ij cat.2021.199965999996
+respectively. The above results reveal that the BTA                   [9] Y. Li, D. Han, H. Li, X. Zhang, B. Zhang, and Z.
+recognition  performance for continuous frames                is     Xiao, "Multi-block SSD based on small object
+significantly improved after the SSDA recognizes and                 detection for UAV railway scene surveillance,"
+removes interfering factors and performs feature fusion.             Chinese Journal of Aeronautics, vol. 33, no. 6, pp.
+Although the study achieved some results in BTA                      1747-1755,                                      2020.
+recognition  of continuous  frames,  the             recognition     https://doi.org/10.1016/j.cja.2020.02.024
+performance of the proposed AR method in the case of                 [10] Z. Xu, Z. Wu, and W. Fan, "Improved SSD-assisted
+occluded characters is doubtful because the basketball               algorithm     for  surface     defect  detection   of
+technology videos used are all unobscured videos. In                 electromagnetic luminescence," Proceedings of the
+view of this, future research will focus on how to improve           Institution of Mechanical Engineers, vol. 235, no. 5,
+the AR accuracy for occluded characters. In addition,                pp.        761-768,                             2021.
+how to apply the AR algorithm proposed by the study to               https://doi.org/1748006X2199538
+short video platforms or web-side is also a worthwhile                         [11] Z. Xu, and W. Zhang, "3D CNN hand pose
+research direction.                                                  estimation with end-to-end hierarchical model and
+                                                                     physical constraints from depth images," Neural
+References                                                           Network World, vol. 33, no. 1, pp. 35-48, 2023.
+[1] Z. Guo, Y. Hou, R. Xiao, C. Li, and W. Li, "Motion               https://doi.org/10.14311/NNW.2023.33.003
+                                                                      [12] A. Rehman, M. A. Khan, T. Saba, Z. Mehmood, and
+               saliency based hierarchical attention network for     N. Ayesha, "Microscopic brain tumor detection and
+action      recognition,"   Multimedia    Tools              and     classification using 3D CNN and feature selection
+              Applications, vol. 82, no. 3, pp. 4533-4550, 2022.     architecture," Microscopy Research and Technique,
+https://doi.org/10.1007/s11042-022-13441-7                           vol.   84,    no.  1,      pp.     133-149,     2020.
+[2] G. V. Reddy, K. Deepika, L. Malliga, D. Hemanand,                https://doi.org/10.1002/jemt.23597
+
+110  Informatica 48 (2024) 97-110    Z. Cui
+
+
+             [13] V. Pareek, S. Chaudhury, and S. Singh, "Hybrid     https://doi.org/10.1109/TII.2020.3021047
+      3DCNN-RBM      network      for      gas           mixture           [23] K. Bhosle, and V. Musande, "Evaluation of deep
+      concentration estimation with sensor array," IEEE              learning CNN model for recognition of devanagari
+      Sensors Journal, vol. 21, no. 21, pp. 24263-24273,             digit," Artificial Intelligence and Applications, vol.
+      2021. https://doi.org/10.1109/JSEN.2021.3105414                1,      no.   2,      pp.      114-118,             2023.
+[14]                   A. Chaddad, P. Sargos, and C. Desrosiers,     https://doi.org/10.47852/bonviewAIA3202441
+      "Modeling texture in deep 3D CNN for survival                        [24] R. A. A. Salvador, and P. C. Naval, "Towards a
+      analysis," IEEE Journal of Biomedical and Health               feasible hand gesture recognition system as sterile
+      Informatics, vol. 25, no. 7, pp. 2454-2452, 2020.              non-contact interface in the operating room with 3D
+      https://doi.org/10.1109/JBHI.2020.3025901                      convolutional neural networkm," Informatica, vol.
+              [15] S. K. Roy, G. Krishna, S. R. Dubey, and B. B.     46,      no.      1,      pp.     1-12,             2022.
+      Chaudhuri, "HybridSN: Exploring 3D-2D CNN                      https://doi.org/10.31449/inf.v46i1.3442
+      feature     hierarchy  for      hyperspectral        image           [25] Y. Li, S. Yang, Y. Zheng, and H. Lu, "Improved
+      classification,"                IEEE Geoscience and Remote     point-voxel region convolutional neural network: 3d
+      Sensing Letters, vol. 17, no. 2, pp. 277-281, 2020.            object detectors for autonomous driving," IEEE
+      https://doi.org/10.1109/LGRS.2019.2918719                      Transactions on Intelligent Transportation Systems,
+            [16] W. Chen, Y. Qiao, and Y. Li, "Inception-SSD: An     vol.     23,  no. 7,     pp.     9311-9317,         2022.
+      improved single shot detector for vehicle detection,"          https://doi.org/10.1109/TITS.2021.3071790
+      Journal of Ambient Intelligence and Humanized                        [26] K. Zhu, W. Lu, J. Liu, X. Luo, and X. Zhao, "A
+      Computing, vol. 13, no. 1, pp. 5047-5053, 2022.                lightweight 3d convolutional neural network for
+      https://doi.org/10.1007/s12652-020-02085-w                     deepfake      detection,"  International  Journal      of
+                  [17] Z. Lyu, D. Zhang, and J. Luo, "A GPU-free     Intelligent Systems, vol. 36, no. 9, pp. 4990-5004,
+      real-time     object   detection method for          apron     2021. https://doi.org/10.1002/int.22499
+      surveillance     video   based     on            quantized      [27] D. Kim, M. E. Lipford, H. He, Q. Ding, V. Ivanovic,
+      MobileNet-SSD," IET Image Processing, vol. 16, no.             S. N. Lockhart, S. Craft, C. T. Whitlow, and Y. Jung,
+      8,      pp.      2196-2209,                          2022.     "Parametric cerebral blood flow and arterial transit
+      https://doi.org/10.1049/ipr2.12483                             time mapping using a 3D convolutional neural
+             [18] Q. Huang, Y. Zhang, Y. Huang, C. Mi, Z. Zhang,     network," Magnetic Resonance in Medicine, vol. 90,
+      and W. Mi, "Two-stage container keyhole location               no.      2,      pp.      583-595,                  2023.
+      algorithm based on optimized SSD and adaptive                  https://doi.org/10.1002/mrm.29674
+      threshold," Journal of Computational Methods in               [28] R. Opfer, J. Krueger, L. Spies, A. C. Ostwaldt, H. H.
+      Sciences and Engineering, vol. 22, no. 5, pp.                  Kitzler,  and S. Schippling,              and R. Buchert,
+      1559-1571,                                           2022.     "Automatic segmentation of the thalamus using a
+      https://doi.org/10.3233/JCM-226135                             massively trained 3d convolutional neural network:
+       [19] W. A. Okaishi, A. Zaarane, I. Slimani, I. Atouf, and     higher sensitivity for the detection of reduced
+      M.  Benrabh,     "A     vehicular     queue         length     thalamus     volume   by   improved         inter-scanner
+      measurement system in real-time based on SSD                   stability," European Radiology, vol. 33, no. 3, pp.
+      network," Transport and Telecommunication, vol.                1852-1861,                                          2022.
+      22,     no.     1,     pp.     29-38,                2021.     https://doi.org/10.1007/s00330-022-09170-y
+      https://doi.org/10.2478/ttj-2021-0003                                    [29] L. He, B. Ding, H. Wang, and T. Zhang, "An
+                [20] Y. Pan, M. Lin, Z. Wu, H. Zhang, and Z. Xu,     optimal 3d convolutional neural network based
+      "Caching-aware garbage collection to improve                   lipreading method," IET Image Processing, vol. 16,
+      performance and lifetime for nand flash ssds," IEEE            no.     1,     pp.     113-122,                     2021.
+      Transactions on Consumer Electronics, vol. 67, no.             https://doi.org/10.1049/ipr2.12337
+      2,      pp.      141-148,                            2021.              [30] B. Masoudi, S. Daneshvar, and S. N. Razavi,
+      https://doi.org/10.1109/TCE.2021.3067604                       "Multi-modal neuroimaging feature fusion via 3d
+             [21] T. E. Trueman, A. K. Jayaraman, S. Jasmine, G.     convolutional neural     network  architecture        for
+      Ananthakrishnan,     and    P.   Narayanasamy,          "A     schizophrenia diagnosis," Intelligent Data Analysis,
+      Multi-channel convolutional neural network for                 vol.      25,  no.    3,   pp.   527-540,           2021.
+      multilabel sentiment classification using abilify oral         https://doi.org/10.3233/IDA-205113
+      user reviews," Informatica, vol. 47, no. 1, pp.
+      109-113,                                             2023.
+      https://doi.org/10.31449/inf.v47i1.3510
+               [22] L. Yao, and Z. Ge, "Cooperative deep dynamic
+      feature extraction and variable time-delay estimation
+      for industrial quality prediction," IEEE Transactions
+      on Industrial Informatics, vol.             17, no. 6, pp.
+      3782-3792,                                           2021.
