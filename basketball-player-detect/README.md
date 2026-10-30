@@ -20,6 +20,7 @@ whose raw materials live directly in the parent directory (the `ai-research` rep
 | [docs/05-literature-review.md](docs/05-literature-review.md) | Annotated **literature review / reading list**: papers, benchmarks, and systems for detection, tracking, team assignment, ReID & jersey-number recognition — single-algorithm methods and full pipelines, in reading order, with a 10-paper core path |
 | [docs/06-licenses-and-patents.md](docs/06-licenses-and-patents.md) | License & IP table for every method/model/dataset in the reading list (code, weights, data terms) + patent landscape (SportVU/Second Spectrum/Hawk-Eye…) and commercial-safe build combinations |
 | [docs/07-datasets.md](docs/07-datasets.md) | Dataset catalog for detection/tracking/identification: SportsMOT, TeamTrack, SoccerNet, DanceTrack, SportVU dumps, Roboflow Universe, pretraining sets, ball-tracking corpora — each with contents, access and **license terms** |
+| [docs/08-v1-prototype-plan.md](docs/08-v1-prototype-plan.md) | v1 prototype plan: quarter-length sessions, quantitatively gated detection (TrackEval mini-benchmark), and individual player identification fused from jersey number + team + appearance gallery |
 | [`..`](../) | The reference repo's raw materials at the `ai-research` root (org files, PDF, mmaction2 results) |
 | [notes/](notes/) | Raw parsed text of papers we read in full |
 

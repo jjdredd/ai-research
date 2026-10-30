@@ -109,6 +109,11 @@ restrict outputs to per-shot trajectories or invest in line-based calibration
 
 ## Suggested build order
 
+> **Update (Oct 2026):** the v1 scope below was later **expanded** — steps 2
+> and 3 merged into a single v1 that already delivers individual player
+> identification (number + team). Authoritative v1 spec:
+> [08-v1-prototype-plan.md](08-v1-prototype-plan.md).
+
 1. v0: Ultralytics YOLO11-person + ByteTrack + supervision overlay — same day,
    qualitative sanity on our footage. Specified in detail in
    [04-v0-prototype.md](04-v0-prototype.md).
