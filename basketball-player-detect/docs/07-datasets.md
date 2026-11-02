@@ -24,10 +24,17 @@ broadcast-style basketball footage. Train/test split with hosted evaluation.
 Empirically: basketball is its hardest sport (3+ way contact occlusions;
 detection is easy, association is not). Serves: detection fine-tuning, tracker
 evaluation (HOTA/MOTA via TrackEval), baseline comparisons (MixSORT etc.).
-- Access: https://github.com/MCG-NJU/SportsMOT (links to downloads; also
-  mirrored on Hugging Face and in `roboflow/trackers`)
-- **Data license: CC BY 4.0** 🟡 (per official mirror terms; the GitHub repo
-  additionally asks for citation and has challenge terms for submissions)
+- Access: https://github.com/MCG-NJU/SportsMOT — **official Hugging Face
+  mirror: `huggingface.co/datasets/MCG-NJU/SportsMOT`** (verified 2026-11-02:
+  `dataset/{train,val,test}.tar` = 6.4/6.3/22.1 GB; `splits_txt/basketball.txt`
+  lists 80 basketball sequences, 15 in train + 15 in val carry GT, 35 test-only;
+  basketball clips avg ~845 fr @25 fps, ~10 tracks, ~9 boxes/frame)
+- **Data license: CC BY-NC 4.0** 🟠 (**corrected 2026-11-02** — the official
+  README carries the BY-NC mark and competition terms incl. *no redistribution
+  without written permission*; earlier notes here said CC BY 4.0, that was
+  wrong). Consequences: fine for our internal eval; raw frames/GT must never be
+  committed to this repo or redistributed; NC labels must never leak into any
+  future training set (v0.1 trains nothing, so this is a docs-only constraint)
 - Code license: **none stated** in the repo ⛔ (use TrackEval — MIT — instead)
 
 ### TeamTrack — full-pitch, no cuts
@@ -180,7 +187,7 @@ are anchored to products, not papers.
 
 | Dataset | Task(s) | Basketball? | Identity labels? | Size | Data license |
 |---|---|---|---|---|---|
-| SportsMOT | MOT eval/finetune | ✅ | no | 240 cl / ~150k fr | 🟡 CC BY 4.0 |
+| SportsMOT | MOT eval/finetune | ✅ | no | 240 cl / ~150k fr | 🟠 CC BY-NC 4.0 (corrected) |
 | TeamTrack | full-game MOT | ✅ | no | 4M+ boxes, 4K–8K | ⛔ unstated |
 | SoccerNet Track/ReID/GSR | MOT + ReID + team | ❌ (soccer) | ✅ ✅✅ | 10h+ / 340k crops | 🔴 research-only |
 | DanceTrack | same-appearance MOT | ❌ | no | 62 clips | 🔴 CC BY-NC |
@@ -193,8 +200,8 @@ are anchored to products, not papers.
 
 ## Practical takeaways for this project
 
-1. **v0/v1 fine-tune + eval combo:** SportsMOT (CC BY 4.0 — cleanest terms of
-   any sports MOT data) + a vetted RF Universe basketball set for detector
+1. **v0/v1 fine-tune + eval combo:** SportsMOT (CC BY-NC 4.0 as of the 2026-11
+   re-check — eval-only, not redistributable; no longer "cleanest terms") + a vetted RF Universe basketball set for detector
    fine-tuning; evaluate with TrackEval (MIT).
 2. **Identity stages can only be validated on SoccerNet-ReID** (research-only)
    → keep identity experiments research-phase, or build your own small labeled

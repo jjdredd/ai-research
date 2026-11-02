@@ -16,3 +16,8 @@ clips/*.mp4
 
 # run outputs (regeneratable; committed only when explicitly snapshotted)
 out/
+
+# v0.1 bench: staged downloads (SportsMOT tars etc.) must never be committed
+# (CC BY-NC 4.0, non-redistributable) — see docs/07
+bench/_staging/
+bench/mini-2026-10/raw/
