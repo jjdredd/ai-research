@@ -24,3 +24,6 @@ bench/mini-2026-10/*
 !bench/mini-2026-10/README.md
 bench/_eval/
 bench/_results/
+!bench/mini-2026-10/labels/
+bench/mini-2026-10/labels/*
+!bench/mini-2026-10/labels/label.html
