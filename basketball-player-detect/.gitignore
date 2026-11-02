@@ -20,4 +20,7 @@ out/
 # v0.1 bench: staged downloads (SportsMOT tars etc.) must never be committed
 # (CC BY-NC 4.0, non-redistributable) — see docs/07
 bench/_staging/
-bench/mini-2026-10/raw/
+bench/mini-2026-10/*
+!bench/mini-2026-10/README.md
+bench/_eval/
+bench/_results/

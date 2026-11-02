@@ -1,0 +1,28 @@
+{
+  "_purpose": "Pinned checkpoints for the v0.1 no-training invariant (docs/09). Every model a v0.1 run may load must appear here with the checksum of the stock, un-fine-tuned publication. bench/no_training_check.py verifies local files against this and greps the source tree for training APIs.",
+  "_as_of": "2026-11-02",
+  "weights": [
+    {
+      "name": "yolo11m.pt",
+      "origin": "ultralytics/yolo11m (AGPL-3.0; v0 legacy + v0.1 A/B fallback row only)",
+      "expected_path": "./yolo11m.pt",
+      "sha256": "d5ffc1a674953a08e11a8d21e022781b1b23a19b730afc309290bd9fb5305b95"
+    },
+    {
+      "name": "rf-detr-large-2026.pth",
+      "origin": "roboflow rf-detr-large-2026 (Apache-2.0), fetched from pinned GCS URL by rfdetr 1.11.2 loader",
+      "expected_path": "~/.roboflow/models/rf-detr-large-2026.pth",
+      "sha256": "0f4e20e19a99c0f8a62b5685f57f6c8b5c371c59081feda6752a0561a79ccf38"
+    },
+    {
+      "name": "rf-detr-medium.pth",
+      "origin": "roboflow rf-detr-medium (Apache-2.0)",
+      "expected_path": "~/.roboflow/models/rf-detr-medium.pth",
+      "sha256": "749ff6071828aaffac63e204c4f4135ed3d6cdae4d702e086c360edc3b5768c8"
+    }
+  ],
+  "notes": [
+    "Adding a model to a v0.1 run requires adding a row here (stock publication checksum from the upstream release) — the checker fails on any checkpoint referenced in code that is not pinned.",
+    "The git-level invariant (.git has never contained a training loop touching these weights) is enforced by the source grep below, not by history."
+  ]
+}
