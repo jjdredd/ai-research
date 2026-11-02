@@ -68,3 +68,25 @@ Added for v0.1: scenedetect 0.7.2, rfdetr 1.11.2, trackers 2.6.1
 (roboflow: `OCSORTTracker`, `ByteTrackTracker`, `BoTSORTTracker`,
 `CMCConfig`, `load_mot_file`, `eval`). Still missing (M3/M4): paddleocr,
 transformers/SigLIP (torch already present), possibly `timm`.
+
+## 2026-11-02b — bench/mini-2026-10 built (M1 data complete)
+
+- SportsMOT train.tar (6.70 GB) + val.tar (6.59 GB) downloaded to `bench/_staging/`
+  (gitignored). Both tar-valid (exit 0, only AppleDouble xattr warnings; tar contains
+  macOS `._*` junk — deleted 25k+ files after extraction).
+- basketball ∩ (train|val) = exactly **30 sequences** (`_staging/basketball_gt.txt`);
+  extracted via `tar --wildcards -T extract_patterns.txt` (patterns `train/<seq>/*` etc;
+  exit 2 = harmless "pattern didn't match both tars"). Extracted = 6.0 GB, all have
+  img1/ + gt/gt.txt + seqinfo.ini (25 fps, 720p, ~845 fr avg).
+- Public GT is players-only: gt.txt cls column = 1 for all 227,673 rows (no referee rows).
+- Final layout = score.py's bench contract: `bench/mini-2026-10/<seq>/{img1/,gt/gt.txt,gt/seqinfo.ini}`
+  (seqinfo.ini moved into gt/; configparser lowercases keys → use info.get('imext')).
+- Identity-tracker smoke: HOTA/MOTA/IDF1 = 1.0 on 30/30 (`bench/score.py --trackers <gt-copies>`).
+- TrackEval vendored + numpy-alias patched; sha256 manifest embedded in third_party/TRACKEVAL.lock
+  (`bench/no_training_check.py --update-vendor-manifest` regenerates; all green).
+- Git repo root is the **parent** `ai-research/` (paths prefixed `basketball-player-detect/`).
+- Labeling: no vision in any assistant model → manual human labeling chosen (all 30 seqs).
+  Tooling: `bench/label_attrs.py` (5 crops/track → labels/review/), `bench/make_label_ui.py`
+  (self-contained labels/label.html with instructions + localStorage autosave + CSV export),
+  `bench/ingest_labels.py` (validate + split into labels/<seq>/track_attrs.csv).
+  Commit 30e0e17 = bench foundation; labeling UI follow-up commit.

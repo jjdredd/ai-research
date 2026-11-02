@@ -40,10 +40,27 @@ SportsMOT is **CC BY-NC 4.0** with competition no-redistribution terms
 Identity-tracker smoke (gt.txt copied as predictions) scores HOTA/MOTA/IDF1 =
 1.0 on all 30 sequences — verified 2026-11-02.
 
-## labels/ (in progress)
+## labels/ — manual attribute labeling (human task, ~1.5–2.5 h)
 
-Per-track constant attributes, one CSV per sequence:
-`labels/<seq>/track_attrs.csv` with columns `track_id,team,number,note`.
-Team colors & jersey numbers are not in SportsMOT GT; they are added manually
-via `bench/label_attrs.py` crop review. Required for M3/M4 exit checks
-(team assignment accuracy, OCR accuracy, gallery re-ID).
+Team colors & jersey numbers are **not** in SportsMOT GT. They are added by
+hand, per track, for all 30 sequences. Required for M3/M4 exit checks (team
+assignment accuracy, jersey-number OCR, referee detection, gallery re-ID).
+
+Workflow (regenerate any step; all outputs are gitignored):
+
+1. `.venv/bin/python bench/label_attrs.py --all --crops-per-track 5`
+   → per-track review crops in `labels/review/<seq>/` (up to 5 best frames
+   per track, cropped from GT boxes — crops are guaranteed same-person per row).
+2. `.venv/bin/python bench/make_label_ui.py`
+   → writes `labels/label.html` — open it in a browser. It contains the full
+   labeling instructions (team T1/T2 by jersey colour, number rules, non-player
+   checkbox, notes), shows all 1500 crops, auto-saves progress per browser.
+3. Press **Export CSV** when done (or to checkpoint) →
+   drop the downloaded `track_attrs_all.csv` into `labels/`, then run
+   `.venv/bin/python bench/ingest_labels.py` — validates track ids against GT
+   and splits into `labels/<seq>/track_attrs.csv`
+   (`track_id,team,number,non_player,note,gt_len_frames,median_h`).
+
+Label quality bar: consistent team labels within a sequence; never guess a
+number (blank = unreadable = excluded from OCR metric); flag officials as
+non-player; note suspected GT id-switches.
