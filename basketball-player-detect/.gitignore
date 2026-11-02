@@ -1,0 +1,18 @@
+# python
+.venv/
+__pycache__/
+
+# local agent/session artifacts
+.pi/
+
+# model weights (downloaded on first run, not in git)
+*.pt
+
+# test footage: open-license clips live in clips/ but are downloaded, not
+# committed (see clips/MANIFEST.md for sources + MANIFEST.sha256 for integrity)
+clips/*.ogv
+clips/*.webm
+clips/*.mp4
+
+# run outputs (regeneratable; committed only when explicitly snapshotted)
+out/

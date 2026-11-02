@@ -16,7 +16,7 @@ procedure too).
 | Labeled mini-benchmark | `bench/mini-2026-10/` | v0.1, v1 (v0 optional) | SportsMOT-format boxes+IDs+team+number (`08` § Data & benchmark plan); eval-only, frozen; version-tagged |
 | Golden fixtures | `bench/fixtures/` | all | ~20 hand-picked frames + expected-stage outputs (see § 2 L1/L2); tiny, checked into git |
 | Metrics schema | `bench/schemas/metrics.schema.json` | all | every prototype emits `metrics.json` in one schema so CI can compare any run to any bar |
-| Review notebook | `notebooks/review.ipynb` | v0 (mandatory), v0.1/v1 (same notebook, more panels) | one notebook, per-prototype sections; panels defined in § 4 |
+| Review script | `src/prototype/<p>/review.py` | v0 (mandatory), v0.1/v1 (same pattern, more panels) | plain Python, no notebooks (user preference); text summary + PNG panels; panels defined in § 4 |
 
 **Harness commands** (uniform across prototypes; scripts differ, interfaces
 don't):
@@ -27,7 +27,7 @@ make unit         # L1: pure-logic tests, no models, <60 s, runs in CI on every 
 make stage        # L2: per-stage scoring vs fixtures, small GPU ok
 make bench        # L3: full TrackEval + custom scorers on bench/mini-2026-10
 make e2e          # L4: quarter-length run -> players.json + overlay + metrics.json
-make review       # opens notebooks/review.ipynb against the latest out/ run
+make review       # runs the prototype's review.py against the latest out/ run
 ```
 
 ## 1. What TrackEval covers — and what it doesn't
@@ -104,8 +104,8 @@ plus the named-player counts.
 
 | Acceptance criterion (04) | Layer | Procedure | Pass rule |
 |---|---|---|---|
-| ≥90% visible players detected (fixed cam) | L4 + notebook | sample 6×10 s windows; notebook panel overlays GT-free eyeball counts per window | ≥90% in each window |
-| ≥6/10 players hold ID >5 s during continuous play | L4 + notebook | ID-longevity panel: per-minute, count tracks alive >5 s | ≥6 in the median minute of play |
+| ≥90% visible players detected (fixed cam) | L4 + review script | sample 6×10 s windows; eyeball counts per window against overlay | ≥90% in each window |
+| ≥6/10 players hold ID >5 s during continuous play | L4 + review script | ID-longevity panel: per-minute, count tracks alive >5 s | ≥6 in the median minute of play |
 | Watchable overlay, ≥10 FPS or <3× realtime | L0/L4 | wall-clock recorded to `fps.json` | either/or |
 | tracks.csv round-trips | L0 | `pd.read_csv` + bounds/NaN asserts | no errors, sane coords |
 | **Expose** expected failures (pile-up ID swaps, refs-as-players, cut fragmentation, bench flicker) | review checklist § 4 | each failure mode observed and noted in `v0-findings.md` | all four observed *or* explanation why the footage didn't exercise it |
@@ -145,8 +145,9 @@ mode is a pass condition (`04` § Known expected failures).
 
 ## 4. Qualitative review checklist (`make review`)
 
-One notebook, four panels, used at every prototype (v0 mandatory; v0.1/v1 as
-triage when metrics don't explain a failure):
+One review script per prototype (plain Python + PNG panels, no notebooks),
+four panels, used at every prototype (v0 mandatory; v0.1/v1 as triage when
+metrics don't explain a failure):
 
 1. **Count-over-time histogram** — expected ~10 + refs; dips = misses,
    spikes = ghosts.

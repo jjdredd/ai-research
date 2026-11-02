@@ -33,7 +33,7 @@ src/prototype/v0/
   detect_track.py      # CLI: video in -> overlay mp4 + tracks.csv + fps.json
   tracks.csv           # frame, time_s, track_id, x1,y1,x2,y2, conf
   README.md            # how to run
-notebooks/v0_review.ipynb  # eyeball metrics: IDs over time, count histogram
+  review.py            # eyeball metrics as a script: IDs over time, count histogram (no notebook)
 ```
 
 ## Code sketch (the whole prototype, essentially)
@@ -77,7 +77,7 @@ wrappers; sketch is indicative.)
 3. Run ByteTrack on fixed-cam clips; run **both** ByteTrack and BoT-SORT on
    the broadcast clip.
 4. Produce overlay videos + `tracks.csv`.
-5. Review notebook: expected-player-count histogram over time (should sit at
+5. Review pass (`review.py`): expected-player-count histogram over time (should sit at
    10 during play + refs; deviations = missed/ghost detections), longest-lived
    track durations, ID churn per minute.
 6. Write a short findings note (`docs/notes/v0-findings.md`) deciding:
