@@ -68,6 +68,17 @@ review panels), so an interrupted run never leaves stale mixtures.
 Progress + config are logged to `out/<clip>/<tracker>/run.log`, and every
 run upserts its summary row into `out/RESULTS.md` (the run ledger).
 
+## Track-level stats (after full runs)
+
+```
+.venv/bin/python src/prototype/v0/track_stats.py out/act_state_team/bytetrack
+```
+
+Prints the numeric summary used in `docs/notes/v0-findings.md`: churn
+(ids/min), track lifetime percentiles, >5 s track counts (incl. the
+median-minute acceptance proxy), ghost tracks, id-start bursts.
+Accepts multiple run dirs or a glob.
+
 ## Review pass (after full runs)
 
 ```bash

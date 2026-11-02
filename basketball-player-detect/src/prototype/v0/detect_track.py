@@ -260,9 +260,10 @@ def run(cfg: RunConfig) -> dict:
     cv2.setNumThreads(max(1, cfg.threads // 2))
     use_cuda = (cfg.device is None and torch.cuda.is_available()) or \
                (cfg.device is not None and str(cfg.device).startswith("cuda"))
-    half = bool(use_cuda)
-    log.info("decoder=%s threads=%d batch=%d imgsz=%d half=%s",
-             cfg.decoder, cfg.threads, cfg.batch_size, cfg.imgsz, half)
+    # ultralytics >=8.4: 'half' deprecated -> quantize=16 (fp16), None -> fp32
+    quantize = 16 if use_cuda else None
+    log.info("decoder=%s threads=%d batch=%d imgsz=%d quantize=%s",
+             cfg.decoder, cfg.threads, cfg.batch_size, cfg.imgsz, quantize)
 
     meta = probe_meta(cfg.clip) if cfg.decoder == "ffmpeg" else None
     frame_src = frames_ffmpeg(cfg.clip, meta) if cfg.decoder == "ffmpeg" else None
@@ -310,7 +311,7 @@ def run(cfg: RunConfig) -> dict:
                 persist=True,
                 conf=cfg.conf,
                 imgsz=cfg.imgsz,
-                half=half,
+                quantize=quantize,
                 verbose=False,
                 device=cfg.device,
             )
@@ -361,7 +362,7 @@ def run(cfg: RunConfig) -> dict:
         "conf": cfg.conf,
         "batch_size": cfg.batch_size,
         "imgsz": cfg.imgsz,
-        "half": half,
+        "quantize": quantize,
         "python": platform.python_version(),
         "torch_device": "cuda:0" if use_cuda else "cpu",
     }
