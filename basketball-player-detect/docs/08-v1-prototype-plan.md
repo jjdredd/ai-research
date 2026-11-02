@@ -8,6 +8,12 @@ team) because that is the feature the whole pipeline exists for — deferring
 it a further phase delays the only output that distinguishes us from a
 generic tracker demo. Court mapping (stage 6 of `03`) stays out of v1.
 
+> **Sidecar variant (Oct 2026):** `09-v0.1-prototype-plan.md` specifies a
+> full-functionality, **no-training** variant of this plan (stock weights,
+> relaxed bars, no runtime gate) that runs on the same `bench/mini-2026-10/`
+> and freezes the stock-baseline rows every fine-tune below must beat.
+> Testing procedure for all prototypes: `10-testing-guide.md`.
+
 ## What v1 adds over v0
 
 | Dimension | v0 (shipped bar) | v1 target |

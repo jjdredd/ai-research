@@ -21,6 +21,8 @@ whose raw materials live directly in the parent directory (the `ai-research` rep
 | [docs/06-licenses-and-patents.md](docs/06-licenses-and-patents.md) | License & IP table for every method/model/dataset in the reading list (code, weights, data terms) + patent landscape (SportVU/Second Spectrum/Hawk-Eye…) and commercial-safe build combinations |
 | [docs/07-datasets.md](docs/07-datasets.md) | Dataset catalog for detection/tracking/identification: SportsMOT, TeamTrack, SoccerNet, DanceTrack, SportVU dumps, Roboflow Universe, pretraining sets, ball-tracking corpora — each with contents, access and **license terms** |
 | [docs/08-v1-prototype-plan.md](docs/08-v1-prototype-plan.md) | v1 prototype plan: quarter-length sessions, quantitatively gated detection (TrackEval mini-benchmark), and individual player identification fused from jersey number + team + appearance gallery |
+| [docs/09-v0.1-prototype-plan.md](docs/09-v0.1-prototype-plan.md) | v0.1 variant: **all v1 functionality with zero training/fine-tuning** (stock pretrained weights only), accuracy bars at ≈v0 level (below v1), no speed requirements — doubles as the frozen stock-baseline row for v1's fine-tune claims |
+| [docs/10-testing-guide.md](docs/10-testing-guide.md) | How a developer **tests each prototype** once implemented: shared harness (smoke/unit/stage/bench/e2e layers), criterion→test→pass-rule tables for v0/v0.1/v1, custom scorers, the v0.1 no-training invariant, determinism & CI rules |
 | [`..`](../) | The reference repo's raw materials at the `ai-research` root (org files, PDF, mmaction2 results) |
 | [notes/](notes/) | Raw parsed text of papers we read in full |
 

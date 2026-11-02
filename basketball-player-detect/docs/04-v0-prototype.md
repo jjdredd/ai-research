@@ -3,7 +3,8 @@
 Status: **proposal** (not yet built). Goal: same-day qualitative sanity check
 of the core detect→track pipeline on our own footage, before investing in
 fine-tunes, ReID, or calibration. Scope rationale: see
-`03-recommended-architecture.md` § "Suggested build order".
+`03-recommended-architecture.md` § "Suggested build order". Testing
+procedure once built: `10-testing-guide.md` § 3 (v0 table).
 
 ## Objectives (v0 only)
 
